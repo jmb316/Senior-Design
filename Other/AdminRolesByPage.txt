@@ -1,0 +1,24 @@
+Admin roles by page:
+
+
+Index.html
+	-Add chapter announcements
+		-add button
+		-edit button
+		-delete button
+	-Social Media
+		-add button per social media site
+		-delete button
+chapterevents.html
+	-need to see how flexible google calendar is or if should use something else
+Food.html
+	-update weekly menu
+		-add menu
+		-edit menu
+		-delete menu
+	-requested items
+		-delete menu
+		-edit menu
+
+
+	

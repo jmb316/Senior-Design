@@ -12,6 +12,52 @@ router.get('/userlist', function(req, res) {
     });
 });
 
+
+/*
+ * GET chapters
+ */
+router.get('/chapterlist', function(req, res) {
+           var db = req.db;
+           var collection = db.get('chapterlist');
+           collection.find({},{},function(e,docs){
+                           res.json(docs);
+                           });
+           });
+
+
+/*
+ * POST to chapters.
+ */
+router.post('/addchapter', function(req, res) {
+     
+            var db = req.db;
+            var collection = db.get('chapterlist');
+            
+             var query      = {"Lehigh":"Lehigh"};
+            
+            collection.findOne(query, function(err, school){
+                         if (school) {
+                         err = 'The chapter you entered already exists';
+                         callback(err);
+                         } else {
+                              // err = 'Trying to create';
+                              // callback(err);
+                         // create the new user
+                        /* coll.insert(newChapter, function(err,user){
+                                     callback(err,user);
+                                     });*/
+                               collection.insert(req.body, function(err, result){
+                                                 res.send(
+                                                          (err === null) ? { msg: '' } : { msg: err }
+                                                          );
+                                                 });
+
+                         }
+                         });
+            
+            });
+
+
 /*
  * POST to adduser.
  */

@@ -7,9 +7,8 @@ var bodyParser = require('body-parser');
 // Database
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('mongodb://jmb316:sf@ds051853.mongolab.com:51853/sf');
+var db = monk('localhost:27017/nodetest2');
 
-//routes
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -18,7 +17,6 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-//app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -34,17 +32,8 @@ app.use(function(req,res,next){
     next();
 });
 
-//app.use routes
 app.use('/', routes);
 app.use('/users', users);
-//app.use('/roster',rosters);
-
-
-//Testing roster
-//app.use('/roster', function(req, res) {
-       //    res.render('roster', { title: 'Express' });
-       //    });
-
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
