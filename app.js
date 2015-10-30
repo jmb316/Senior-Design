@@ -4,12 +4,21 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+
 // Database
 var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('mongodb://jmb316:sf@ds051853.mongolab.com:51853/sf');
 
+
+//configure passport
+require('./middleware/passport')(passport);
+
+
 //routes
+// Load routes
+//var routes = require('./routes/index')(passport, app);
 var routes = require('./routes/index');
 var users = require('./routes/users');
 

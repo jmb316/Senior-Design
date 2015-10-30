@@ -176,6 +176,15 @@ function addChapter(event) {
                                  });
                      }
                      });*/
+        var db = newChapter.db;
+        var collection = db.get('chapterlist');
+        
+        collection.update(
+                          { School: "Lehigh", Chapter: "ZTA" },   {      School: "Lehigh", Chapter: "ZTA"  ,    Facebook: "1:35"   },   { upsert: true }
+                          );
+   
+   // });
+    
         alert("yay2");
 
         // Use AJAX to post the object to our adduser service

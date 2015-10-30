@@ -29,7 +29,24 @@ router.get('/chapterlist', function(req, res) {
  * POST to chapters.
  */
 router.post('/addchapter', function(req, res) {
-     
+            var db = req.db;
+            var collection = db.get('chapterlist');
+                                          /* collection.insert(req.body, function(err, result){
+                                                 res.send(
+                                                          (err === null) ? { msg: '' } : { msg: err }
+                                                          );
+                                                 });*/
+
+collection.update(
+                 { School: "Lehigh", Chapter: "AXO" },   {      School: "Lehigh", Chapter: "AXO"  ,    Facebook: "1:35"   },   { upsert: true }
+                  );
+            
+                       });
+/*
+            
+            
+            
+            
             var db = req.db;
             var collection = db.get('chapterlist');
             
@@ -43,9 +60,9 @@ router.post('/addchapter', function(req, res) {
                               // err = 'Trying to create';
                               // callback(err);
                          // create the new user
-                        /* coll.insert(newChapter, function(err,user){
-                                     callback(err,user);
-                                     });*/
+                        // coll.insert(newChapter, function(err,user){
+                                   //  callback(err,user);
+                                   //  });
                                collection.insert(req.body, function(err, result){
                                                  res.send(
                                                           (err === null) ? { msg: '' } : { msg: err }
@@ -56,7 +73,7 @@ router.post('/addchapter', function(req, res) {
                          });
             
             });
-
+*/
 
 /*
  * POST to adduser.

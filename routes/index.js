@@ -1,5 +1,7 @@
+//SF
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -27,6 +29,7 @@ router.get('/food', function(req, res) {
 router.get('/login', function(req, res) {
            res.render('login', { title: 'Login' });
            });
+
 
 /* GET Login page. */
 router.get('/logout', function(req, res) {
@@ -57,5 +60,53 @@ router.get('/template', function(req, res) {
 router.get('/verfiy', function(req, res) {
            res.render('verify', { title: 'Verify' });
            });
+
+
+/*NEW ROUTERS*/
+
+/*router.get('/login', function (req, res) {
+           if (req.user) {
+           res.redirect('/');
+           }
+           else {
+           res.render('login');
+           }
+           });*/
+
+/* GET home page. */
+/*module.exports = function(passport, app) {
+    router.get('/', checkAuth, function (req, res, next) {
+              user.getAll(req.user.id, function(users) {
+                           group.getFromId(req.user.groups, function(groups) {
+                                           console.log(groups);
+                                           if (groups !== undefined && groups.length > 0) {
+                                           req.user.group_obj = groups;
+                                           console.log(groups[0]);
+                                           res.redirect(groups[0]._id );
+                                           } else {
+                                           res.render('group' , { user: req.user, users: users , group: '', groups: ''})
+                                           }
+                                           });
+                           //});
+               })
+               };
+*/
+
+  router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+ 
+// Authentication callback
+router.get('/auth/google/callback',
+           passport.authenticate('google', {
+                                 successRedirect: '/',
+                                 failureRedirect: '/'
+                                 }));
+
+function checkAuth(req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+    
+    res.redirect('/login');
+}
+
 
 module.exports = router;
