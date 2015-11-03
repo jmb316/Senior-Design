@@ -36,7 +36,7 @@ function populateTable() {
 
     // jQuery AJAX call for JSON
     $.getJSON( '/users/user', function( data ) {
-              alert("global.js user");
+              //alert("global.js user");
               
               
               
