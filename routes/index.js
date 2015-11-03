@@ -26,9 +26,9 @@ router.get('/food', function(req, res) {
 
 
 /* GET Login page. */
-router.get('/login', function(req, res) {
-           res.render('login', { title: 'Login' });
-           });
+//router.get('/login', function(req, res) {
+ //          res.render('login', { title: 'Login' });
+  //         });
 
 
 /* GET Login page. */
@@ -63,19 +63,22 @@ router.get('/verfiy', function(req, res) {
 
 
 /*NEW ROUTERS*/
-
-/*router.get('/login', function (req, res) {
+/* GET home page. */
+router.get('/login', function (req, res) {
            if (req.user) {
            res.redirect('/');
            }
            else {
            res.render('login');
            }
-           });*/
+           });
+
+
 
 /* GET home page. */
-/*module.exports = function(passport, app) {
+module.exports = function(passport, app) {
     router.get('/', checkAuth, function (req, res, next) {
+               /*
               user.getAll(req.user.id, function(users) {
                            group.getFromId(req.user.groups, function(groups) {
                                            console.log(groups);
@@ -87,10 +90,22 @@ router.get('/verfiy', function(req, res) {
                                            res.render('group' , { user: req.user, users: users , group: '', groups: ''})
                                            }
                                            });
-                           //});
+                           }); */
+               console.log("GET HOMEPAGE");
                })
                };
-*/
+
+
+
+router.post('/', function(req, res) {
+res.render('index', { title: 'Home' });
+            console.log("post HOMEPAGE");
+
+            
+            });
+
+
+
 
   router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
  
@@ -98,8 +113,14 @@ router.get('/verfiy', function(req, res) {
 router.get('/auth/google/callback',
            passport.authenticate('google', {
                                  successRedirect: '/',
-                                 failureRedirect: '/'
+                                 failureRedirect: '/logout'
                                  }));
+
+/*router.get('/auth/google/callback',
+        passport.authenticate('google', { failureRedirect: '/' }),
+        function(req, res) {
+        res.redirect('/index');
+        });*/
 
 function checkAuth(req, res, next) {
     if (req.isAuthenticated())
@@ -107,6 +128,5 @@ function checkAuth(req, res, next) {
     
     res.redirect('/login');
 }
-
 
 module.exports = router;

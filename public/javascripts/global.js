@@ -1,5 +1,5 @@
 // Userlist data array for filling in info box
-var userListData = [];
+var userData = [];
 var chapterListData = [];
 
 // DOM Ready =============================================================
@@ -35,9 +35,21 @@ function populateTable() {
     var tableContent = '';
 
     // jQuery AJAX call for JSON
-    $.getJSON( '/users/userlist', function( data ) {
-
-        // Stick our user data array into a userlist variable in the global object
+    $.getJSON( '/users/user', function( data ) {
+              alert("global.js user");
+              
+              
+              
+                  var arrayPosition = userData.map(function(arrayItem) { return arrayItem.name; }).indexOf(thisUserName);
+              
+              // Get our User Object
+              var thisUserObject = userData[arrayPosition];
+              alert("thisUserObject: "+arrayPosition);
+              //Populate Info Box
+              $('#userInfoName').text(thisUserObject.fullname);
+              /*
+              
+              // Stick our user data array into a userlist variable in the global object
         userListData = data;
 
         // For each item in our JSON, add a table row and cells to the content string
@@ -51,7 +63,10 @@ function populateTable() {
 
         // Inject the whole content string into our existing HTML table
         $('#userList table tbody').html(tableContent);
+               */
     });
+    
+    
 };
 
 

@@ -12,6 +12,29 @@ router.get('/userlist', function(req, res) {
     });
 });
 
+//gettign profile info
+
+router.get('/profile', function(req, res) {
+           console.log()
+           var db = req.db;
+           var collection = db.get('user');
+           collection.findOne({},{},function(e,docs){
+                             console.log(res.json(docs));
+                           });
+           });
+
+
+/*
+ * GET user
+ */
+router.get('/user', function(req, res) {
+           var db = req.db;
+           var collection = db.get('user');
+           collection.find({},{},function(e,docs){
+                           res.json(docs);
+                           });
+           });
+
 
 /*
  * GET chapters
