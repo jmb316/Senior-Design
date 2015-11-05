@@ -4,23 +4,23 @@ var router = express.Router();
 var passport = require('passport');
 
 /* GET home page. */
-router.get('/', function(req, res) {
-  res.render('index', { title: 'Home' });
+router.get('/', checkAuth, function(req, res) {
+                res.render('index', { title: 'Home' });
 });
 
 
 /* GET chapter events page. */
-router.get('/chapterevents', function(req, res) {
+router.get('/chapterevents', checkAuth, function(req, res) {
            res.render('chapterevents', { title: 'Chapter Events' });
            });
 
 /* GET chapter signup page. */
-router.get('/chaptersignup', function(req, res) {
+router.get('/chaptersignup',function(req, res) {
            res.render('chaptersignup', { title: 'Chapter Signup' });
            });
 
 /* GET Food page. */
-router.get('/food', function(req, res) {
+router.get('/food', checkAuth,function(req, res) {
            res.render('food', { title: 'Food' });
            });
 
@@ -32,9 +32,9 @@ router.get('/food', function(req, res) {
 
 
 /* GET Login page. */
-router.get('/logout', function(req, res) {
-           res.render('logout', { title: 'Logout' });
-           });
+//router.get('/logout', function(req, res) {
+//           res.render('logout', { title: 'Logout' });
+ //          });
 
 /* GET Login page. */
 router.get('/membersignup', function(req, res) {
@@ -42,29 +42,49 @@ router.get('/membersignup', function(req, res) {
            });
 
 /* GET Login page. */
-router.get('/profile', function(req, res) {
+
+/*router.get('/profile', checkAuth, function(req, res) {
+           console.log("in profile!!");
+           var db = req.db;
+           var collection = db.get('user');
+           collection.findOne({},{},function(e,docs){
+                              //console.log(docs.user.name);
+                             // console.log(JSON.stringify(res.json(docs)));
+                              
+                              });
+           // res.render('profile', { title: 'Profile' });
+           });*/
+
+router.get('/profile',checkAuth, function(req, res) {
            res.render('profile', { title: 'Profile' });
            });
 
 /* GET roster page. */
-router.get('/roster', function(req, res) {
+router.get('/roster', checkAuth,function(req, res) {
            res.render('roster', { title: 'Roster' });
            });
 
 /* GET template page. */
-router.get('/template', function(req, res) {
+router.get('/template', checkAuth, function(req, res) {
            res.render('template', { title: 'Template' });
            });
 
 /* GET verfiy page. */
-router.get('/verfiy', function(req, res) {
+router.get('/verfiy', checkAuth, function(req, res) {
            res.render('verify', { title: 'Verify' });
            });
 
 
 /*NEW ROUTERS*/
+
+// Logout
+router.get('/logout', function (req, res) {
+           req.logout();
+           res.redirect('/login');
+           });
+
 /* GET home page. */
-router.get('/login', function (req, res) {
+router.get('/login',  function (req, res) {
            if (req.user) {
            res.redirect('/');
            }
@@ -97,7 +117,7 @@ module.exports = function(passport, app) {
 
 
 
-router.post('/', function(req, res) {
+router.post('/', checkAuth, function(req, res) {
 res.render('index', { title: 'Home' });
             console.log("post HOMEPAGE");
 
@@ -113,19 +133,18 @@ res.render('index', { title: 'Home' });
 router.get('/auth/google/callback',
            passport.authenticate('google', {
                                  successRedirect: '/',
-                                 failureRedirect: '/logout'
+                                 failureRedirect: '/'
                                  }));
 
-/*router.get('/auth/google/callback',
-        passport.authenticate('google', { failureRedirect: '/' }),
-        function(req, res) {
-        res.redirect('/index');
-        });*/
+
 
 function checkAuth(req, res, next) {
     if (req.isAuthenticated())
+    {
+        console.log("AUTH!");
         return next();
-    
+    }
+    console.log("NOT AUTH");
     res.redirect('/login');
 }
 

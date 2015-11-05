@@ -36,6 +36,11 @@ app.use(cookieParser());
 //app.use(session({ secret: 'thisisatest', saveUninitialized : true, resave : true } ));
 //var expressSession = require('express-session');
 //app.use(expressSession({secret: 'mySecretKey'}));
+app.use(require('express-session')({
+                                   secret: 'keyboard cat',
+                                   resave: false,
+                                   saveUninitialized: false
+                                   }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -44,11 +49,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //routes
 // Load routes
-//var routes = require('./routes/index')(passport, app);
 var routes = require('./routes/index');
+//var routes = require('./routes/index');
 var users = require('./routes/users');
-
-
 
 
 // Make our db accessible to our router
@@ -58,7 +61,7 @@ app.use(function(req,res,next){
         });
 
 //app.use routes
-app.use('/', routes);
+app.use('/',  routes);
 app.use('/users', users);
 //app.use('/roster',rosters);
 

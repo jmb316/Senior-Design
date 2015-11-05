@@ -15,7 +15,7 @@ router.get('/userlist', function(req, res) {
 //gettign profile info
 
 router.get('/profile', function(req, res) {
-           console.log()
+           console.log("in profile!!");
            var db = req.db;
            var collection = db.get('user');
            collection.findOne({},{},function(e,docs){
@@ -122,5 +122,12 @@ router.delete('/deleteuser/:id', function(req, res) {
         res.send((err === null) ? { msg: '' } : { msg:'error: ' + err });
     });
 });
+
+
+
+
+
+
+
 
 module.exports = router;
