@@ -4,16 +4,17 @@ var chapterListData = [];
 
 // DOM Ready =============================================================
 $(document).ready(function() {
-
+console.log("populate table0");
     // Populate the user table on initial page load
     populateTable();
+
                   
     // Populate the chapter info on initial page load
     //populateChapSignup();
 
     // Username link click
     $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
-
+                  
     // Add User button click
     $('#btnAddUser').on('click', addUser);
                   
@@ -23,6 +24,8 @@ $(document).ready(function() {
 
     // Delete User link click
     $('#userList table tbody').on('click', 'td a.linkdeleteuser', deleteUser);
+                  
+
 
 });
 
@@ -33,40 +36,25 @@ function populateTable() {
 
     // Empty content string
     var tableContent = '';
-
+        console.log("populate table1");
     // jQuery AJAX call for JSON
-    $.getJSON( '/users/user', function( data ) {
-              //alert("global.js user");
-              
-              
-              
-                  var arrayPosition = userData.map(function(arrayItem) { return arrayItem.name; }).indexOf(thisUserName);
-              
-              // Get our User Object
-              var thisUserObject = userData[arrayPosition];
-              alert("thisUserObject: "+arrayPosition);
-              //Populate Info Box
-              $('#userInfoName').text(thisUserObject.fullname);
-              /*
-              
+    $.getJSON( '/users/userlist', function( data ) {
+              console.log("populate table2");
               // Stick our user data array into a userlist variable in the global object
-        userListData = data;
-
-        // For each item in our JSON, add a table row and cells to the content string
-        $.each(data, function(){
-            tableContent += '<tr>';
-            tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '" title="Show Details">' + this.username + '</a></td>';
-            tableContent += '<td>' + this.email + '</td>';
-            tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
-            tableContent += '</tr>';
-        });
-
-        // Inject the whole content string into our existing HTML table
-        $('#userList table tbody').html(tableContent);
-               */
-    });
-    
-    
+              userListData = data;
+              
+              // For each item in our JSON, add a table row and cells to the content string
+              $.each(data, function(){
+                     tableContent += '<tr>';
+                     tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '" title="Show Details">' + this.username + '</a></td>';
+                     tableContent += '<td>' + this.email + '</td>';
+                     tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
+                     tableContent += '</tr>';
+                     });
+              
+              // Inject the whole content string into our existing HTML table
+              $('#userList table tbody').html(tableContent);
+              });
 };
 
 
@@ -238,14 +226,6 @@ function addChapter(event) {
     }
 };
 
-
-
-
-
-
-
-
-
 // Add User
 function addUser(event) {
     event.preventDefault();
@@ -273,7 +253,7 @@ function addUser(event) {
         $.ajax({
             type: 'POST',
             data: newUser,
-            url: '/users/adduser',
+            url: '/user/adduser',
             dataType: 'JSON'
         }).done(function( response ) {
 

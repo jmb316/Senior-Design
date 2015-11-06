@@ -60,13 +60,12 @@ module.exports = function(passport) {
                          console.log("HERE!");
             // try to find the user based on their google id
                         // console.log(User);
-                         console.log("HERE2");
+                     
             User.findOne({ 'google_id' : profile.id }, function(err, user) {
-                 console.log("HERE3!");
+            
                          if (err)
                     return done(err);
-                         console.log("user!");
-                if (user) {
+                                        if (user) {
                     // user found!
                          console.log("User exists");
                     return done(null, user);
@@ -81,7 +80,7 @@ module.exports = function(passport) {
                     newUser.token = token;
                     newUser.name  = profile.displayName;
                     newUser.email = email;
- 
+                         
                         /* var request = gapi.client.plus.people.get({
                                                                    'userId' : 'me'
                                                                    });

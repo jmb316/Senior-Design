@@ -123,9 +123,16 @@
                               <i class="glyphicon glyphicon-shopping-cart fa-stack-1x fa-inverse"></i>
                         </span>
                     </div>
-                    <div class="panel-body">
-                        <h4>Requested Items</h4>
-                        <!--starting todolist -->
+                    <div class="panel-body" id="footlist">
+
+                        <!-- USER LIST--><h2>Requested Items</h2>
+                        <div id="foodList"><table class="table table-striped">
+                            <tbody></tbody></table></div><!-- /USER LIST-->
+                        <!-- ADD USER--><div id="addFood"><fieldset>
+                            <input id="inputFoodName" type="text" placeholder="Food request..."><button id="btnAddFood">Submit</button></fieldset></div><!-- /ADD USER--></div>
+                    
+                        
+                        <!--starting todolist
                         <section>
                             <ul id="todolist"></ul>
                             <form action="#" method="post">
@@ -138,6 +145,9 @@
 
                             </form>
                         </section>
+                        -->
+                        
+                        
                     </div>
                 </div>
             </div>
@@ -156,7 +166,7 @@
     <!-- /.container -->
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
- <script src="javascripts/food.js"></script>
+ <script src="javascripts/foodlist.js"></script>
 </body>
 
 </html>

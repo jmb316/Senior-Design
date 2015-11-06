@@ -52,6 +52,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var routes = require('./routes/index');
 //var routes = require('./routes/index');
 var users = require('./routes/users');
+var foods = require('./routes/foods');
 
 
 // Make our db accessible to our router
@@ -63,6 +64,7 @@ app.use(function(req,res,next){
 //app.use routes
 app.use('/',  routes);
 app.use('/users', users);
+app.use('/foods', foods);
 //app.use('/roster',rosters);
 
 

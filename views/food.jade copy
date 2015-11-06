@@ -26,29 +26,20 @@ block content
 
         // USER LIST
         h2 User List
-        #userList
+        #foodList
             table
                 thead
-                    th UserName
-                    th Email
+                    th Request
                     th Delete?
                 tbody
         // /USER LIST
 
         // ADD USER
-        h2 Add User
-        #addUser
+        h2 Add Food
+        #addFood
             fieldset
-                input#inputUserName(type='text', placeholder='Username')
-                input#inputUserEmail(type='text', placeholder='Email')
-                br
-                input#inputUserFullname(type='text', placeholder='Full Name')
-                input#inputUserAge(type='text', placeholder='Age')
-                br
-                input#inputUserLocation(type='text', placeholder='Location')
-                input#inputUserGender(type='text', placeholder='gender')
-                br
-                button#btnAddUser Add User
+                input#inputFoodName(type='text', placeholder='Username')
+                button#btnAddFood Add Food
         // /ADD USER
 
     // /WRAPPER
