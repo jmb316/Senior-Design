@@ -124,3 +124,5 @@ function listEvents(auth) {
                          }
                          }
                          });
+}
+
