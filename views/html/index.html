@@ -29,8 +29,6 @@
                                         
                                         
                                         
-                                        
-                                        
                                         <!-- Navigation -->
                                         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                                             <div class="container">
@@ -73,14 +71,11 @@
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                <!-- /.navbar-collapse -->                                            </div>
+                                                <!-- /.navbar-collapse -->
+                                            </div>
                                             <!-- /.container -->
                                         </nav>
-                                        
-                                        
-                                        
-                                        
-                                        
+                                   
     </head>
     
     <body>
@@ -97,29 +92,59 @@
         
         <!-- Page Content -->
         <div class="container">
-            
-            <!-- Information -->
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">
                         [Chapter Name]
                     </h1>
                 </div>
-                <div class="col-lg-8">
-               <iframe src="http://widget.websta.me/in/lehigh_zta/?s=240&w=3&h=1&b=1&p=5" allowtransparency="true" frameborder="0" scrolling="no" style="border:none;overflow:hidden;width:765px; height: 255px" ></iframe> <!-- websta - web.stagram.com -->
-                
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4><i class="fa fa-fw fa-check"></i> Chapter Annoucements</h4>
+                </div>
+            
+            
+            <div class="col-md-8 col-sm-6">
+                <div class="panel panel-default text-center">
+                    <div class="panel-heading">
+                         <h4>Chapter Annoucements</h4>
+                    </div>
+                    <div class="panel-body">
+                        <!-- Announce LIST-->
+                        <div id="announceList">
+                            <table class="table table-striped">
+                                <tbody></tbody>
+                            </table>
+                        </div><!-- announce LIST-->
+                        <!-- ADD announce--><div id="addAnnounce">
+                            <fieldset>
+                                <textarea class="form-control input-lg" id="inputAnnounceName" type="text" placeholder="New announcement..."></textarea>
+                                <button id="btnAddAnnounce">Submit</button>
+                            </fieldset>
                         </div>
-                        <div class="panel-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
-                        </div>
+                        <!-- /ADD announce-->
                     </div>
                 </div>
-                
-                <div class="col-md-4">
-                    <div class="fb-page" data-href="https://www.facebook.com/LehighZTA" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/LehighZTA"><a href="https://www.facebook.com/LehighZTA"></a></blockquote></div></div>
+            </div>
+            <div class="col-md-4 col-sm-8">
+               
+                        <div class="fb-page" data-href="https://www.facebook.com/LehighZTA" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true">
+                            <div class="fb-xfbml-parse-ignore">
+                                <blockquote cite="https://www.facebook.com/LehighZTA">
+                                    <a href="https://www.facebook.com/LehighZTA"></a>
+                                </blockquote>
+                    
+                    
+                </div>
+            </div>
+        </div>
+
+    
+               <!--
+               <iframe src="http://widget.websta.me/in/lehigh_zta/?s=240&w=3&h=1&b=1&p=5" allowtransparency="true" frameborder="0" scrolling="no" style="border:none;overflow:hidden;width:765px; height: 255px" ></iframe>  websta - web.stagram.com
+               
+               
+           INSTANSIVE WIDGET <script src="//instansive.com/widget/js/instansive.js"></script><iframe src="//instansive.com/widgets/2068d46c694f53f4dd1cd11c1938436e06b4b67c.html" id="instansive_2068d46c69" name="instansive_2068d46c69"  scrolling="no" allowtransparency="true" class="instansive-widget" style="width: 100%; border: 0; overflow: hidden;"></iframe>
+           -->
+               
+               
 
                        <!-- <div class="panel panel-default">
                         <div class="panel-heading">
@@ -181,6 +206,7 @@
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+         <script src="/javascripts/announcelist.js"></script>
         
     </body>
     

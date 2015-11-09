@@ -1,14 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-/*Start of Food Request*/
 /*
  * GET userlist.
  */
-router.get('/foodlist', function(req, res) {
-          // alert("getting userlist");
+router.get('/announcelist', function(req, res) {
     var db = req.db;
-    var collection = db.get('foodlist');
+    var collection = db.get('announcelist');
     collection.find({},{},function(e,docs){
         res.json(docs);
     });
@@ -18,17 +16,17 @@ router.get('/foodlist', function(req, res) {
 /*
  * GET user
  */
-router.get('/food', function(req, res) {
+router.get('/announce', function(req, res) {
            var db = req.db;
-           var collection = db.get('food');
+           var collection = db.get('announce');
            collection.find({},{},function(e,docs){
                            res.json(docs);
                            });
            });
 
-router.post('/addfood', function(req, res) {
+router.post('/addannounce', function(req, res) {
     var db = req.db;
-    var collection = db.get('foodlist');
+    var collection = db.get('announcelist');
     collection.insert(req.body, function(err, result){
         res.send(
             (err === null) ? { msg: '' } : { msg: err }
@@ -39,16 +37,14 @@ router.post('/addfood', function(req, res) {
 /*
  * DELETE to deleteuser.
  */
-router.delete('/deletefood/:id', function(req, res) {
+router.delete('/deleteannounce/:id', function(req, res) {
     var db = req.db;
-    var collection = db.get('foodlist');
+    var collection = db.get('announcelist');
     var userToDelete = req.params.id;
     collection.remove({ '_id' : userToDelete }, function(err) {
         res.send((err === null) ? { msg: '' } : { msg:'error: ' + err });
     });
 });
-/*End of food request*/
-
 
 
 

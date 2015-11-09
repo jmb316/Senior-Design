@@ -17,7 +17,7 @@ var db = monk('mongodb://jmb316:sf@ds051853.mongolab.com:51853/sf');
 require('./middleware/passport')(passport);
 
 
-
+var t="test";
 
 
 
@@ -53,7 +53,7 @@ var routes = require('./routes/index');
 //var routes = require('./routes/index');
 var users = require('./routes/users');
 var foods = require('./routes/foods');
-
+var announce = require('./routes/announce');
 
 // Make our db accessible to our router
 app.use(function(req,res,next){
@@ -65,6 +65,8 @@ app.use(function(req,res,next){
 app.use('/',  routes);
 app.use('/users', users);
 app.use('/foods', foods);
+app.use('/announce', announce);
+
 //app.use('/roster',rosters);
 
 

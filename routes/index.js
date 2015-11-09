@@ -55,6 +55,9 @@ router.get('/membersignup', function(req, res) {
            // res.render('profile', { title: 'Profile' });
            });*/
 
+
+
+
 router.get('/profile',checkAuth, function(req, res) {
            res.render('profile', { title: 'Profile' });
            });

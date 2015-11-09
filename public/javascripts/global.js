@@ -1,10 +1,10 @@
 // Userlist data array for filling in info box
 var userData = [];
 var chapterListData = [];
-
 // DOM Ready =============================================================
 $(document).ready(function() {
 console.log("populate table0");
+
     // Populate the user table on initial page load
     populateTable();
 
