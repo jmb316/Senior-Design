@@ -52,41 +52,53 @@ router.get('/chapterlist', function(req, res) {
 /*
  * POST to chapters.
  */
+
+/*collection.insert({'school':req.body.School}, {'Chapter':req.body.Chapter}, function(err, doc){
+                  // no error, inserted new document, with _id=1
+                  collection.insert({_id:1}, {w:1}, function(err, doc){
+                                    // error occured since _id=1 already existed
+                                    });
+                  });*/
+
 router.post('/addchapter', function(req, res) {
             var db = req.db;
             var collection = db.get('chapterlist');
-                                          /* collection.insert(req.body, function(err, result){
+            console.log("req.body:"+req.body.School);
+                                         collection.insert(req.body, function(err, result){
                                                  res.send(
                                                           (err === null) ? { msg: '' } : { msg: err }
                                                           );
-                                                 });*/
+                                                 });
+           /* collection.insert({'School':req.body.School}, function(err, result){
+                              // no error, inserted new document, with _id=1
+                              collection.insert({'School':req.body.School}, function(err, result){
+                                                // error occured since _id=1 already existed
+                                                });
+                              });*/
 
-collection.update(
-                 { School: "Lehigh", Chapter: "AXO" },   {      School: "Lehigh", Chapter: "AXO"  ,    Facebook: "1:35"   },   { upsert: true }
-                  );
+/*collection.update(
+                 { School: "Lehigh", Chapter: "AXO" },   {     Facebook: "1:35"   },   { upsert: true }
+                  );*/
             
-                       });
-/*
-            
-            
+                      // });
+
             
             
-            var db = req.db;
-            var collection = db.get('chapterlist');
+           /*
             
-             var query      = {"Lehigh":"Lehigh"};
+           // var db = req.db;
+           // var collection = db.get('chapterlist');
+            
+             var query      = {"School":req.body.School};
             
             collection.findOne(query, function(err, school){
-                         if (school) {
-                         err = 'The chapter you entered already exists';
-                         callback(err);
+                         if (query) {
+                               console.log("query"+query.Chapter);
+                         console.log('The chapter you entered already exists');
+
+                               return;
                          } else {
-                              // err = 'Trying to create';
-                              // callback(err);
-                         // create the new user
-                        // coll.insert(newChapter, function(err,user){
-                                   //  callback(err,user);
-                                   //  });
+                        
                                collection.insert(req.body, function(err, result){
                                                  res.send(
                                                           (err === null) ? { msg: '' } : { msg: err }
@@ -94,10 +106,10 @@ collection.update(
                                                  });
 
                          }
-                         });
+                         });*/
             
             });
-*/
+
 
 /*
  * POST to adduser.

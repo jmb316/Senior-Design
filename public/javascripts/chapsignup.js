@@ -3,59 +3,20 @@ var userData = [];
 var chapterListData = [];
 // DOM Ready =============================================================
 $(document).ready(function() {
-//console.log("populate table0");
 
-    // Populate the user table on initial page load
-    populateTable();
-
+    // Add Chapter button click
+    $('#btnAddChapter').on('click', addChapter);
+                  alert("chapsignup.js");
                   
-    // Populate the chapter info on initial page load
-    //populateChapSignup();
-
-    // Username link click
-    $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
-                  
-    // Add User button click
-    $('#btnAddUser').on('click', addUser);
-
-    // Delete User link click
-    $('#userList table tbody').on('click', 'td a.linkdeleteuser', deleteUser);
-                  
-
 
 });
 
 // Functions =============================================================
 
-// Fill table with data
-function populateTable() {
-
-    // Empty content string
-    var tableContent = '';
-        //console.log("populate table1");
-    // jQuery AJAX call for JSON
-    $.getJSON( '/users/userlist', function( data ) {
-              //console.log("populate table2");
-              // Stick our user data array into a userlist variable in the global object
-              userListData = data;
-              
-              // For each item in our JSON, add a table row and cells to the content string
-              $.each(data, function(){
-                     tableContent += '<tr>';
-                     tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '" title="Show Details">' + this.username + '</a></td>';
-                     tableContent += '<td>' + this.email + '</td>';
-                     tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
-                     tableContent += '</tr>';
-                     });
-              
-              // Inject the whole content string into our existing HTML table
-              $('#userList table tbody').html(tableContent);
-              });
-};
 
 
 // Show User Info
-function showUserInfo(event) {
+function showChapterInfo(event) {
     
     // Prevent Link from Firing
     event.preventDefault();
@@ -77,6 +38,89 @@ function showUserInfo(event) {
     
 };
 
+
+// Add Chapter
+function addChapter(event) {
+    event.preventDefault();
+    
+    // Super basic validation - increase errorCount variable if any fields are blank
+    var errorCount = 0;
+    $('#addChapter input').each(function(index, val) {
+                           if($(this).val() === '') { errorCount++; }
+                             });
+
+    // Check and make sure errorCount's still at zero
+    if(errorCount === 0) {
+       // alert($('#addChapter fieldset select#inputSchool').val());
+        //alert($('#addChapter fieldset select#inputChapter').val());
+        // If it is, compile all user info into one object
+        var newChapter = {
+            'School': $('#addChapter fieldset select#inputSchool').val(),
+            'Chapter': $('#addChapter fieldset select#inputChapter').val(),
+            'Facebook': $('#addChapter fieldset input#inputFacebook').val(),
+            'Twitter': $('#addChapter fieldset input#inputTwitter').val(),
+            'Tumblr': $('#addChapter fieldset input#inputTumblr').val(),
+            'Instagram': $('#addChapter fieldset input#inputInstagram').val()
+        }
+       // alert("yay");
+       /* var coll = mongo.collection('chapterlist');
+        var query      = {School:School};
+        //var userObject = {School: School, chapter: chapter};
+        alert("yay3");
+        // make sure this username does not exist already
+        coll.findOne(query, function(err, school){
+                     if (school) {
+                     err = 'The chapter you entered already exists';
+                     callback(err);
+                     } else {
+                     
+                     // create the new user
+                     coll.insert(newChapter, function(err,user){
+                                 callback(err,user);
+                                 });
+                     }
+                     });*/
+
+   
+   // });
+    
+        //alert("yay2");
+
+        // Use AJAX to post the object to our adduser service
+        $.ajax({
+               type: 'POST',
+               data: newChapter,
+               url: '/users/addchapter',
+               dataType: 'JSON'
+               }).done(function( response ) {
+                      // alert("response: "+response.msg);
+                       // Check for successful (blank) response
+                       if (response.msg === '') {
+                       
+                       // Clear the form inputs
+                       $('#addChapter fieldset input').val('');
+                       
+                       // Clear the form select
+                       $('#addChapter fieldset select').val('Select');
+                       
+                       // Update the table
+                       //populateTable();
+                         alert("Chapter added to database!");
+                       }
+                       else {
+                       
+                       // If something goes wrong, alert the error message that our service returned
+                       alert('Error: ' + response.msg);
+                       
+                       }
+                       });
+    }
+    else {
+        // If errorCount is more than 0, error out
+        alert('Please fill in all fields');
+        return false;
+    }
+};
 
 // Add User
 function addUser(event) {

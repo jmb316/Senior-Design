@@ -8,7 +8,7 @@ var userSchema = Schema({
         email        : String,
         google_id    : String,
         token        : String,
-        groups       : [Schema.Types.ObjectId]
+        chapter      : String
 });
 
 // create the model for users and expose it to our app

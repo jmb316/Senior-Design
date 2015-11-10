@@ -13,20 +13,10 @@ var download = function (uri, filename, callback) {
         request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
     });
 };
+               var User = require('../models/user.js');
          var mongoose = require('mongoose')
               mongoose.connect('mongodb://jmb316:sf@ds051853.mongolab.com:51853/sf');
 
-              
-              var User = mongoose.model('User', {
-                                        name         : String,
-                                        email        : String,
-                                        google_id    : String,
-                                        token        : String,
-                                        });
-              
-       
-              
-              console.log("IN PASSPORT.JS");
 module.exports = function(passport) {
 
     // Needed by passport to serialize and deserialize

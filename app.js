@@ -17,9 +17,6 @@ var db = monk('mongodb://jmb316:sf@ds051853.mongolab.com:51853/sf');
 require('./middleware/passport')(passport);
 
 
-var t="test";
-
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
