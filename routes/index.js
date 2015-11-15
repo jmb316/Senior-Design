@@ -142,6 +142,7 @@ router.get('/auth/google/callback',
 
 
 function checkAuth(req, res, next) {
+    console.log("checkAuth in index.js");
     if (req.isAuthenticated())
     {
         console.log("AUTH!");

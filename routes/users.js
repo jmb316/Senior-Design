@@ -63,10 +63,13 @@ router.get('/chapterlist', function(req, res) {
 router.post('/addchapter', function(req, res) {
             var db = req.db;
             var collection = db.get('chapterlist');
-            console.log("req.body:"+req.body.School);
+            console.log("req.id:"+req.id);
                                          collection.insert(req.body, function(err, result){
-                                                 res.send(
-                                                          (err === null) ? { msg: '' } : { msg: err }
+                                                          // console.log("result");
+                                                          // console.log(result);
+                                                          
+                                                           res.send(
+                                                                    (err === null) ? {mes:result} : { msg: err }
                                                           );
                                                  });
            /* collection.insert({'School':req.body.School}, function(err, result){

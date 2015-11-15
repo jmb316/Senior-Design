@@ -1,7 +1,6 @@
 // Userlist data array for filling in info box
 var userData = [];
 var chapterListData = [];
-var chapid='';
 // DOM Ready =============================================================
 $(document).ready(function() {
 
@@ -11,7 +10,7 @@ $(document).ready(function() {
                   
                  //  parseData("sample.csv", addChapter);
                   
-  console.log("chapid outside: "+chapid);
+
 });
 
 // Functions =============================================================
@@ -160,71 +159,127 @@ function parseData(url,callback) {
 function addChapter(event) {
     event.preventDefault();
     alert("do stuff in add chap!");
+    /*
+     //parsing csv
+     Papa.parse("sample.csv",{
+     download: true,
+     delimiter: ",",
+     //dynamicTyping: true,
+     header:true,
+     complete: function (results) {
+     //setCentroids(results, "isomap");
+     // callback(null, null);
+     alert("Parsing complete:", results, "sample.csv");
+     console.log(results.data);
+     csv=results.data;
+     
+     
+     $.ajax({
+     type: 'POST',
+     data: results,
+     url: '/users/addchapter',
+     dataType: 'JSON'
+     }).done(function( response ) {
+     // alert("response: "+response.msg);
+     // Check for successful (blank) response
+     if (response.msg === '') {
+     
+     alert("added sample to database!");
+     //window.location.href = "/addMember";
+     }
+     else {
+     
+     // If something goes wrong, alert the error message that our service returned
+     alert('Error: ' + response.msg);
+     
+     }
+     });
+     
+     }
+     });*/
+    
+    // alert("data1"+csv);
+    // alert("data2:"+JSON.stringify(csv));
+    //alert("data3:"+JSON.stringify(data)[0]."loc");
+    //      alert("data4:"+csv[0]);
+    // alert("do stuff in add chap2!");
     // Super basic validation - increase errorCount variable if any fields are blank
     var errorCount = 0;
     $('#addChapter input').each(function(index, val) {
-                                if($(this).val() === '') {
+                           if($(this).val() === '') {
+                                
                                 errorCount++; }
-                                });
-    
+                             });
+
     // Check and make sure errorCount's still at zero
-    // if(errorCount === 0) {
-    // alert($('#addChapter fieldset select#inputSchool').val());
-    //alert($('#addChapter fieldset select#inputChapter').val());
-    // If it is, compile all user info into one object
-    var newChapter = {
-        'School': $('#addChapter fieldset select#inputSchool').val(),
-        'Chapter': $('#addChapter fieldset select#inputChapter').val(),
-        'Facebook': $('#addChapter fieldset input#inputFacebook').val(),
-        'Twitter': $('#addChapter fieldset input#inputTwitter').val(),
-        'Tumblr': $('#addChapter fieldset input#inputTumblr').val(),
-        'Instagram': $('#addChapter fieldset input#inputInstagram').val()
-    }
-    // Use AJAX to post the object to our adduser service
-/*$.post( '/users/addchapter', { name: "John", time: "2pm" })
-    .done(function( data ) {
-          console.log(data );
-          });*/
-    
-    $.ajax({
-           type: 'POST',
-           data: newChapter,
-           url: '/users/addchapter',
-           dataType: 'JSON'
-           }).done(function(response) {
-                   // Check for successful (blank) response
-                   alert( "id before");
-                   console.log(response);
-                  
-                   chapid=response.mes._id;
-                       alert(chapid);
-                   alert("Chapter added to database!");
-                   
-                   //if (response.msg === '') {
-                   
-                   // Clear the form inputs
-                   $('#addChapter fieldset input').val('');
-                   
-                   // Clear the form select
-                   $('#addChapter fieldset select').val('Select');
-                   
-                   // Update the table
-                   //populateTable();
-                 
-                  /* }
-                   else {
-                   
-                   // If something goes wrong, alert the error message that our service returned
-                   alert('Error: ' + response.msg);
-                   
-                   }*/
-                   });
-  //  alert("before");
-   // alert(jqxhr);
-   // alert("after");
+   // if(errorCount === 0) {
+       // alert($('#addChapter fieldset select#inputSchool').val());
+        //alert($('#addChapter fieldset select#inputChapter').val());
+        // If it is, compile all user info into one object
+        var newChapter = {
+            'School': $('#addChapter fieldset select#inputSchool').val(),
+            'Chapter': $('#addChapter fieldset select#inputChapter').val(),
+            'Facebook': $('#addChapter fieldset input#inputFacebook').val(),
+            'Twitter': $('#addChapter fieldset input#inputTwitter').val(),
+            'Tumblr': $('#addChapter fieldset input#inputTumblr').val(),
+            'Instagram': $('#addChapter fieldset input#inputInstagram').val()
+    //    }
+       // alert("yay");
+       /* var coll = mongo.collection('chapterlist');
+        var query      = {School:School};
+        //var userObject = {School: School, chapter: chapter};
+        alert("yay3");
+        // make sure this username does not exist already
+        coll.findOne(query, function(err, school){
+                     if (school) {
+                     err = 'The chapter you entered already exists';
+                     callback(err);
+                     } else {
+                     
+                     // create the new user
+                     coll.insert(newChapter, function(err,user){
+                                 callback(err,user);
+                                 });
+                     }
+                     });*/
+
    
+   // });
     
-      /*  $.ajax({
+        //alert("yay2");
+
+        // Use AJAX to post the object to our adduser service
+            $.ajax({
+               type: 'POST',
+               data: newChapter,
+               url: '/users/addchapter',
+               dataType: 'JSON'
+                   }).done(function( response ) {
+                      // alert("response: "+response.msg);
+                       // Check for successful (blank) response
+                       if (response.msg === '') {
+                       
+                       // Clear the form inputs
+                       $('#addChapter fieldset input').val('');
+                       
+                       // Clear the form select
+                       $('#addChapter fieldset select').val('Select');
+                       
+                       // Update the table
+                       //populateTable();
+                       alert( "id before");
+                        alert( "id is : " + json.forms[0].id);
+                         alert("Chapter added to database!");
+                       }
+                       else {
+                       
+                       // If something goes wrong, alert the error message that our service returned
+                       alert('Error: ' + response.msg);
+                       
+                       }
+                       });
+        
+        $.ajax({
                type: 'POST',
                data: csv,
                url: '/users/addchapter',
@@ -242,15 +297,14 @@ function addChapter(event) {
                        alert('Error: ' + response.msg);
                        
                        }
-                       });*/
-//}
-};
+                       });
+        }
    // else {
         // If errorCount is more than 0, error out
      //   alert('Please fill in all fields');
       //  return false;
    // }
-//};
+};
 
 // Add User
 function addUser(event) {

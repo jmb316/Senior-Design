@@ -98,7 +98,9 @@
                     <form role="form">
                         <p>WRITE INSTRUCTIONS HERE ABOUT TEMPLATE!!!!</p>
                         <button type="download" class="btn btn-primary">Download Roster Template</button>
-                        <button type="upload" class="btn btn-primary">Upload Template</button>
+                        <body onload="fileFunction()"></body>
+                        <input type="file" id="myFile" multiple size="50" onchange="fileFunction()">
+                            <p id="demo"></p>
    
                     </form>
                     </div>
@@ -142,6 +144,7 @@
 <script src="/javascripts/jquery.min.js"></script>
 <script src="/javascripts/bootstrap.min.js"></script>
 <script src="/javascripts/chapsignup.js"></script>
+	<script src="javascripts/papaparse.js"></script>
 </body>
 
 </html>
