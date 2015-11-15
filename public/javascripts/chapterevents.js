@@ -6,7 +6,7 @@ var twoHoursLater = new Date(now.getTime() + (2*1000*60*60));
 twoHoursLater = twoHoursLater.toISOString();
 
 // google api console clientID and apiKey (https://code.google.com/apis/console/#project:568391772772)
-var clientId = '316615911187-g6qp9ghdv970gcnl4c2g6j90koov8chc.apps.googleusercontent.com';
+var clientId = '316615911187-duaavj04u4g1poomqp7dpm76pjuf2642.apps.googleusercontent.com';
 var apiKey = 'AIzaSyCnjBi_r7BqHgKIY37bH5bzdzddoXAdYjs';
 
 // enter the scope of current project (this API must be turned on in the google console)
