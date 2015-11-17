@@ -1,15 +1,18 @@
 // date variables
 var now = new Date();
 today = now.toISOString();
+
 var twoHoursLater = new Date(now.getTime() + (2*1000*60*60));
 twoHoursLater = twoHoursLater.toISOString();
 
 // google api console clientID and apiKey (https://code.google.com/apis/console/#project:568391772772)
 
 //TODO: get from config file
-//heroku: 316615911187-duaavj04u4g1poomqp7dpm76pjuf2642.apps.googleusercontent.com
-//local: 316615911187-g6qp9ghdv970gcnl4c2g6j90koov8chc.apps.googleusercontent.com
-var clientId = '316615911187-g6qp9ghdv970gcnl4c2g6j90koov8chc.apps.googleusercontent.com';
+//heroku:
+var clientID = 316615911187-duaavj04u4g1poomqp7dpm76pjuf2642.apps.googleusercontent.com
+//local:
+//var clientID= 316615911187-g6qp9ghdv970gcnl4c2g6j90koov8chc.apps.googleusercontent.com
+
 var apiKey = 'AIzaSyCnjBi_r7BqHgKIY37bH5bzdzddoXAdYjs';
 
 // enter the scope of current project (this API must be turned on in the google console)
@@ -18,13 +21,13 @@ var scopes = 'https://www.googleapis.com/auth/calendar';
 
 // Oauth2 functions
 function handleClientLoad() {
-    alert("handle client load");
+    //alert("handle client load");
     gapi.client.setApiKey(apiKey);
     window.setTimeout(checkAuth,1);
 }
 
 function checkAuth() {
-    alert("checkauth chap events");
+   // alert("checkauth chap events");
     gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
 }
 
@@ -66,7 +69,7 @@ var resource = {
 
 // function load the calendar api and make the api call
 function makeApiCall() {
-    alert("make API call");
+    //alert("make API call");
     gapi.client.load('calendar', 'v3', function() {					// load the calendar api (version 3)
                      var request = gapi.client.calendar.events.insert({
                                                                       'calendarId':		'ftbioqlsgdfcp0sltprr7r7nqg@group.calendar.google.com',	// calendar ID
@@ -78,10 +81,10 @@ function makeApiCall() {
                       request.execute(function(resp) {
                       if(resp.status=='confirmed') {
                       //document.getElementById('event-response').innerHTML = "Event created successfully. View it <a href='" + resp.htmlLink + "'>online here</a>.";
-                                      alert("Event created successfully");
+                                     // alert("Event created successfully");
                       } else {
                      // document.getElementById('event-response').innerHTML = "There was a problem. Reload page and try again.";
-                                      alert("There was a problem. Reload page and try again.");
+                                     // alert("There was a problem. Reload page and try again.");
                       }
                       console.log(resp);
                       });
