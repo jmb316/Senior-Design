@@ -142,6 +142,7 @@ function listUpcomingEvents() {
                     timeEnd = getTimeInfo(event.end.dateTime || event.end.date);
                     
                     dateFormatted = getFormattedDate(dateStart, dateEnd);
+                    //alert("eventid: "+event.id);
                     
                     appendPre(event.summary + ': ' + dateFormatted +" "+timeStart+" - "+timeEnd);
                     //alert(event.summary + ' (' + when + ')')

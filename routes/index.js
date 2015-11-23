@@ -56,11 +56,40 @@ router.get('/membersignup', function(req, res) {
            });*/
 
 
-
-
 router.get('/profile',checkAuth, function(req, res) {
-           res.render('profile', { title: 'Profile' });
+
+           res.render('profile', { name:req.session.user.name, email:req.session.user.email, google:req.session.user.google_id  });
            });
+
+//Attempting session for profile
+
+/*router.get('/profile', function(req, res) {
+        if (req.session && req.session.user) { // Check if session exists
+        // lookup the user in the DB by pulling their email from the session
+        users.findOne({ email: req.session.user.email }, function (err, user) {
+                     if (!user) {
+                     // if the user isn't found in the DB, reset the session info and
+                     // redirect the user to the login page
+              
+                     req.session.reset();
+                     res.redirect('/login');
+                     } else {
+                     // expose the user to the template
+                     //res.locals.user = user;
+                            console.log("user:"+user);
+                     // render the dashboard page
+                     res.render('profile');
+                     }
+                     });
+        } else {
+        res.redirect('/login');
+        }
+        });*/
+
+
+
+
+//done profile session
 
 /* GET roster page. */
 router.get('/roster', checkAuth,function(req, res) {
@@ -88,7 +117,10 @@ router.get('/logout', function (req, res) {
 
 /* GET home page. */
 router.get('/login',  function (req, res) {
+            console.log("user login1:"+req.session.user);
            if (req.user) {
+           req.session.user = req.user;
+             console.log("user login2:"+req.session.user);
            res.redirect('/');
            }
            else {
@@ -100,7 +132,7 @@ router.get('/login',  function (req, res) {
 
 /* GET home page. */
 module.exports = function(passport, app) {
-    router.get('/', checkAuth, function (req, res, next) {
+    router.get('/login', checkAuth, function (req, res, next) {
                /*
               user.getAll(req.user.id, function(users) {
                            group.getFromId(req.user.groups, function(groups) {
@@ -135,8 +167,8 @@ res.render('index', { title: 'Home' });
 // Authentication callback
 router.get('/auth/google/callback',
            passport.authenticate('google', {
-                                 successRedirect: '/',
-                                 failureRedirect: '/'
+                                 successRedirect: '/login',
+                                 failureRedirect: '/login'
                                  }));
 
 
@@ -145,11 +177,33 @@ function checkAuth(req, res, next) {
     console.log("checkAuth in index.js");
     if (req.isAuthenticated())
     {
-        console.log("AUTH!");
+          //  console.log("AUTH1!");
+        //res.locals.user = user;
+         // console.log("user:"+req.body.email);
+        console.log("user google id:"+req.session.user.google_id);
+        console.log("user google email:"+req.session.user.email);
+        //console.log("res: "+res.locals.user);
+        //console.log("AUTH2!");
         return next();
     }
     console.log("NOT AUTH");
     res.redirect('/login');
 }
+
+
+//uploading chap info
+var uploads = require('../public/javascripts/upload.js');
+// Upload
+router.get('/upload', function (req, res) {
+           res.render('/', { title: 'Uploading' })
+           //upload.doFormDemo(request, response);
+           });
+
+router.post('/upload', function (req, res) {
+            // Add current user to list of users
+            uploads.doFormDemo(req, res);
+            //res.redirect('groups/' +  newGroup.id);
+            });
+
 
 module.exports = router;

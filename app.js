@@ -36,12 +36,15 @@ app.use(cookieParser());
 app.use(require('express-session')({
                                    secret: 'keyboard cat',
                                    resave: false,
-                                   saveUninitialized: false
+                                   saveUninitialized: true
                                    }));
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+
 
 
 //routes
@@ -58,11 +61,54 @@ app.use(function(req,res,next){
         next();
         });
 
+/*app.use(function(req, res, next) {
+        console.log("HERE APP.js");
+        if (req.session && req.session.user) {
+        users.findOne({ email: req.session.user.email }, function(err, user) {
+                      console.log("userI: "+req.session.user);
+                      if (user) {
+                      req.user = user;
+                      delete req.user.password; // delete the password from the session
+                      req.session.user = user;  //refresh the session value
+                      res.locals.user = user;
+                      
+                      }
+                      // finishing processing the middleware and run the route
+                      next();
+                      });
+        } else {
+        console.log("user: "+ req.session.user);
+        next();
+        }
+        });*/
+
+
+/*app.use(function checkAuth(req, res, next) {
+    console.log("checkAuth in app.js");
+    if (req.isAuthenticated())
+    {
+        //  console.log("AUTH1!");
+        //res.locals.user = user;
+        // console.log("user:"+req.body.email);
+        console.log("user google id:"+req.session.user.google_id);
+        console.log("user google id:"+req.session.user.email);
+        //console.log("res: "+res.locals.user);
+        //console.log("AUTH2!");
+        return next();
+    }
+    console.log("NOT AUTH");
+    res.redirect('/login');
+        });*/
+
+
 //app.use routes
 app.use('/',  routes);
 app.use('/users', users);
 app.use('/foods', foods);
 app.use('/announce', announce);
+
+
+
 
 //app.use('/roster',rosters);
 
@@ -103,6 +149,8 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+
 
 
 module.exports = app;

@@ -1,150 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Chapter Sign Up</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/modern-business.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
-
-<body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">App name</a>
-            </div>
-                   <!-- /.container -->
-    </nav>
-
-<!-- ADD USER-->
-<h2>Chapter Sign Up</h2>
-<hr>
-      <h4>Basic Chapter Information</h4>
-<div id="addChapter"><fieldset>
-         <label>School:</label>
-    <select name="Select" id="inputSchool">
-    <option value="" disabled selected>Please Select your School</option>
-            <option value="Lehigh">Lehigh University
-                <option value="Emory University">Emory University
-                                                </select>
-<br><br>    <label>Chapter:</label>
-        <select name="Select" id="inputChapter">
-            <option value="" disabled selected>Please Select a Chapter
-                <option value="AXO">Alpha Chi Omega
-                    <option value="AGD">Alpha Gamma Delta
-                        <option value="AOPI">Alpha Omicron Pi
-                            <option value="APhi">Alpha Phi
-                                <option value="GPhi">Gamma Phi Beta
-                                    <option value="Theta">Kappa Alpha Theta
-                                        <option value="KD">Kappa Delta
-                                            <option value="Pi Phi">Pi Beta Phi
-                                                <option value="Zeta">Zeta Tau Alpha
-                                                    </select>
-        <br><hr>
+    
+    <head>
         
-        <h4>Social Media Information</h4>
-
-     <div class="col-sm-8">
-        <label>Facebook:</label> <input id="inputFacebook" class="form-control" type="text" placeholder="Facebook URL">
-
-               <br>
-         
-                <label>Twitter:</label>
-          <input id="inputTwitter" class="form-control" type="text" placeholder="Twitter URL">
-                <br>
-                  <label>Instagram:</label>
-        <input id="inputInstagram" class="form-control" type="text" placeholder="Instrgram URL">
-                <br>
-                  <label>Tumblr:</label>
-        <input id="inputTumblr" class="form-control" type="text" placeholder="Tumblr URL">
-        <br><br>
-        </div>
-        <!--Template -->
-        <div class="row">
-            <div class="col-md-8">
-                <h4>Chapter Roster</h4>
-                <form name="sentMessage" id="chapterSignUp" novalidate>
-                    <form role="form">
-                        <p>WRITE INSTRUCTIONS HERE ABOUT TEMPLATE!!!!</p>
-                        <button type="download" class="btn btn-primary">Download Roster Template</button>
-                        <body onload="fileFunction()"></body>
-                        <input type="file" id="myFile" multiple size="50" onchange="fileFunction()">
-                            <p id="demo"></p>
-   
-                    </form>
-                    </div>
+        <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <meta name="description" content="">
+                        <meta name="author" content="">
+                            
+                            <title>Chapter Sign Up</title>
+                            
+                            <!-- Bootstrap Core CSS -->
+                            <link href="css/bootstrap.min.css" rel="stylesheet">
+                                
+                                <!-- Custom CSS -->
+                                <link href="css/modern-business.css" rel="stylesheet">
+                                    
+                                    <!-- Custom Fonts -->
+                                    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+                                        
+                                        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+                                        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+                                        <!--[if lt IE 9]>
+                                         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+                                         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+                                         <![endif]-->
+                                        
+                                        </head>
+    
+    <body>
+        
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">App name</a>
+                </div>
+                <!-- /.container -->
+                </nav>
+        
+        <!-- ADD USER-->
+        <h2>Chapter Sign Up</h2>
+        <hr>
+        <h4>Basic Chapter Information</h4>
+        <div id="addChapter"><fieldset>
+            <label>School:</label>
+            <select name="Select" id="inputSchool">
+                <option value="" disabled selected>Please Select your School</option>
+                <option value="Lehigh">Lehigh University
+                    <option value="Emory University">Emory University
+                        </select>
+            <br><br>    <label>Chapter:</label>
+            <select name="Select" id="inputChapter">
+                <option value="" disabled selected>Please Select a Chapter
+                    <option value="AXO">Alpha Chi Omega
+                        <option value="AGD">Alpha Gamma Delta
+                            <option value="AOPI">Alpha Omicron Pi
+                                <option value="APhi">Alpha Phi
+                                    <option value="GPhi">Gamma Phi Beta
+                                        <option value="Theta">Kappa Alpha Theta
+                                            <option value="KD">Kappa Delta
+                                                <option value="Pi Phi">Pi Beta Phi
+                                                    <option value="Zeta">Zeta Tau Alpha
+                                                        </select>
+            <br><hr>
             
-        </div>
-     <br><br>
+            <h4>Social Media Information</h4>
+            
+            <div class="col-sm-8">
+                <label>Facebook:</label> <input id="inputFacebook" class="form-control" type="text" placeholder="Facebook URL">
+                    
+                    <br>
+                    
+                    <label>Twitter:</label>
+                    <input id="inputTwitter" class="form-control" type="text" placeholder="Twitter URL">
+                        <br>
+                        <label>Instagram:</label>
+                        <input id="inputInstagram" class="form-control" type="text" placeholder="Instrgram URL">
+                            <br>
+                            <label>Tumblr:</label>
+                            <input id="inputTumblr" class="form-control" type="text" placeholder="Tumblr URL">
+                                <br><br>
+                                </div>
+            <!--Template -->
+            <div class="row">
+                <div class="col-md-8">
+                    <h4>Chapter Roster</h4>
+                    <button id="btnAddChapter" class="btn btn-primary">Register Chapter</button>
+                    <form name="sentMessage" id="chapterSignUp" novalidate>
+                        <form role="form">
+                            <p>WRITE INSTRUCTIONS HERE ABOUT TEMPLATE!!!!</p>
+                            <button type="download" class="btn btn-primary">Download Roster Template</button>
+                            
+                            
+                        </form>
+                        </div>
+                
+            </div>
+            <br><br>
+            
+        </fieldset></div><!-- /ADD USER-->
         
-    <button id="btnAddChapter" class="btn btn-primary">Register Chapter</button>
-</fieldset></div><!-- /ADD USER-->
-
-
-
-
-
-
-
-<!-- Footer -->
-<footer>
-    <div class="row">
-        <div class="col-lg-12">
-            <p>Copyright &copy; Your Website 2015</p>
+        
+        
+        <br><br><br><br><div><div class="centered">
+        </div><br><button data-target="#myModal" data-toggle="modal" class="btn btn-primary btn-lg">Upload New File</button>
+        <table style="width:50%" class="table table-bordered table-striped"></table>
+        </div><div id="container_id"></div><div id="files_id">
+        </div><div id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
+            <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
+            <button type="button" data-dismiss="modal" aria-label="Close" class="close"></button>
+            <h4 id="myModalLabel" class="modal-title">Upload a file</h4></div>
+        <div class="modal-body">
+            <form id="groupForm" method="post" action="/upload" enctype="multipart/form-data" class="form-horizontal"><
+                div class="form-group">
+                <label class="col-xs-3 control-label">File</label>
+                <div class="col-xs-5">
+                    <input type="file" name="file" class="form-control"></div>
+                <div class="col-xs-5 col-xs-offset-3">
+                    <br>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+                </div></div></form>
+            </div></div></div></div>
+        <div class="test"><div ng-view>
         </div>
-    </div>
-</footer>
-
-</div>
-<!-- /.container -->
-
-<!-- jQuery -->
-<!--<script src="js/jquery.js"></script>-->
-
-<!-- Bootstrap Core JavaScript -->
-<!--<script src="js/bootstrap.min.js"></script>-->
-
-<!-- Contact Form JavaScript -->
-<!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<!--<script src="js/jqBootstrapValidation.js"></script>
-<script src="js/contact_me.js"></script> -->
-</script></body></html>
+        </div>
+        
+        
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Your Website 2015</p>
+                </div>
+            </div>
+        </footer>
+        
+        </div>
+        <!-- /.container -->
+        
+        <!-- jQuery -->
+        <!--<script src="js/jquery.js"></script>-->
+        
+        <!-- Bootstrap Core JavaScript -->
+        <!--<script src="js/bootstrap.min.js"></script>-->
+        
+        <!-- Contact Form JavaScript -->
+        <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <!--<script src="js/jqBootstrapValidation.js"></script>
+         <script src="js/contact_me.js"></script> -->
+        </script></body></html>
 <script src="/javascripts/jquery.min.js"></script>
 <script src="/javascripts/bootstrap.min.js"></script>
 <script src="/javascripts/chapsignup.js"></script>
-	<script src="javascripts/papaparse.js"></script>
+<script src="javascripts/papaparse.js"></script>
 </body>
 
 </html>
