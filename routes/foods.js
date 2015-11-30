@@ -15,16 +15,42 @@ router.get('/foodlist', function(req, res) {
 });
 
 
+
 /*
- * GET user
+ * GET  food per chapter
  */
 router.get('/food', function(req, res) {
+            console.log("messages");
+           var db = req.db;
+           var collection = db.get('food');
+           collection.find({"foodID": "1"}).limit(limit).skip(offset).exec(function(err, messages) {
+                                                                                            if (err) {
+                                                                                            throw err;
+                                                                                            }
+                                                                                             console.log("messages");
+                                                                                             console.log(messages);
+                                                                                            callback(messages);
+                                                                                            });
+           });
+           //});
+/*Message.find({group: groupId}).sort({'_id': -1}).limit(limit).skip(offset).exec(function(err, messages) {
+                                                                                if (err) {
+                                                                                throw err;
+                                                                                }
+                                                                                callback(messages);
+                                                                                });*/
+
+
+/*
+ * GET All food
+ */
+/*router.get('/food', function(req, res) {
            var db = req.db;
            var collection = db.get('food');
            collection.find({},{},function(e,docs){
                            res.json(docs);
                            });
-           });
+           });*/
 
 router.post('/addfood', function(req, res) {
     var db = req.db;

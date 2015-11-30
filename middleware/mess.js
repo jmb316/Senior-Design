@@ -1,9 +1,10 @@
-var Group = require('../models/group');
+var Group = require('../models/chapter');
 var user = require('../middleware/user');
+var Message = require('../models/message');
 var ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = {
-    getFromId: function (ids, callback) {
+    /*getFromId: function (ids, callback) {
         //make array if not already
         if (!(ids instanceof Array)) {
             ids = [ids];
@@ -12,8 +13,35 @@ module.exports = {
             if (err)
                 throw err;
             callback(groups);
-        });
+        });*/
+        
+        
+        
+    getFromId: function (ids, callback) {
+        //make array if not already
+        Group.findOne({'_id': ids},function(err,docs){
+                   if (err)
+                   throw err;
+                   callback(docs);
+                   });
     },
+    getAnnouncements: function (ids, callback) {
+    //make array if not already
+        console.log("ids:"+ids);
+
+        /*collection.findOne({},{},function(e,docs){
+                           console.log(res.json(docs));
+                           });*/
+    Message.find({'_id': ids},function(err,docs){
+                  if (err)
+                  throw err;
+              console.log("mess.js announcement1");
+              console.log(docs);
+              console.log("mess.js announcement2");
+                  callback(docs);
+                  });
+    },
+
     addGroup: function (user_ids, name, desc) {
         //make array if not already
         if (!(user_ids instanceof Array)) {
@@ -42,6 +70,7 @@ module.exports = {
     },
     find: function (id, callback) {
         Group.findById(ObjectId(id), function (err, group) {
+                       console.log("in find chapter.js middleware");
             if (err)
                 throw err;
             callback(group);

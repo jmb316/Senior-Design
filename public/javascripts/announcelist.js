@@ -1,6 +1,5 @@
 // DOM Ready =============================================================
 $(document).ready(function() {
-
     populateAnnounceTable();
                   
     // Add User button click
@@ -8,7 +7,6 @@ $(document).ready(function() {
                   
     // Delete User link click
     $('#announceList table tbody').on('click', 'td a.linkdeleteannounce', deleteAnnounce);
-
 });
 
 // Functions =============================================================
@@ -34,7 +32,7 @@ function populateAnnounceTable() {
                      });
               
               // Inject the whole content string into our existing HTML table
-              $('#announceList table tbody').html(tableContent);
+             // $('#announceList table tbody').html(tableContent);
               });
 };
 
@@ -52,12 +50,14 @@ function addAnnounce(event) {
 
     // Check and make sure errorCount's still at zero
     if(errorCount === 0) {
+         alert("alert: "+$('#addAnnounce fieldset input#inputChapName').val());
         // If it is, compile all user info into one object
         var newAnnounce = {
             'newAnnounce': $('#addAnnounce fieldset textarea#inputAnnounceName').val(),
              'timeStamp': dateTime(),
+        'chapter_id':$('#addAnnounce fieldset input#inputChapName').val()
+            
         }
-
         // Use AJAX to post the object to our adduser service
         $.ajax({
                type: 'POST',
@@ -74,7 +74,7 @@ function addAnnounce(event) {
                        
                        // Update the table
                        populateAnnounceTable();
-                       
+                       location.reload (true);
                        }
                        else {
                        
@@ -95,7 +95,7 @@ function addAnnounce(event) {
 
 // Delete User
 function deleteAnnounce(event) {
-    
+    alert("DELETE!");
     event.preventDefault();
     
     // Pop up a confirmation dialog
@@ -103,7 +103,7 @@ function deleteAnnounce(event) {
     
     // Check and make sure the user confirmed
     if (confirmation === true) {
-        
+                               alert("true");
         // If they did, do our delete
         $.ajax({
                type: 'DELETE',
@@ -119,12 +119,13 @@ function deleteAnnounce(event) {
                        
                        // Update the table
                        populateAnnounceTable();
+                       location.reload (true);
                        
                        });
         
     }
     else {
-        
+         alert("false");
         // If they said no to the confirm, do nothing
         return false;
         

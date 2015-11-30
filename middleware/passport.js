@@ -14,6 +14,7 @@ var download = function (uri, filename, callback) {
     });
 };
                var User = require('../models/user.js');
+            var Chapter = require('../models/chapter.js');
          var mongoose = require('mongoose')
               mongoose.connect('mongodb://jmb316:sf@ds051853.mongolab.com:51853/sf');
 
@@ -42,34 +43,105 @@ module.exports = function(passport) {
     function(token, refreshToken, profile, done) {
                                     console.log("profile ID: " + profile.id);
                                   
-                                    console.log('ID: ' + profile.id);
-                                    console.log('Display Name: ' + profile.displayName);
+                                    //console.log('ID: ' + profile.id);
+                                   // console.log('Display Name: ' + profile.displayName);
+                                         var email = profile.emails[0].value;
+                                   // console.log('Display email: ' + email);
                                    // console.log('Image URL: ' + profile.image.url);
                                     //console.log('Profile URL: ' + profile.url);
         process.nextTick(function() {
                          console.log("HERE!");
             // try to find the user based on their google id
-                        // console.log(User);
+
                      
+                         //looking for User in register
+                        /* Chapter.findOne({ 'email' : "jennifer.morgan.barry@gmail.com" }, function(err, chapter) {
+                                      
+                                      if (err)
+                                              console.log("chapter doesn't exist");
+                                     // return done(err);
+                                      if (chapter) {
+                                      // user found!
+                                      console.log("chapter:");
+                                      console.log(chapter);
+                                      console.log("Chapter exists");
+                                     // return done(null, user);
+                                      }
+                                         else{
+                                              console.log("chapter doesn't exist outside");
+                                         return done(null,chapter);
+                                         }
+                                      })*/
+                         
+
+                         
+             //looking for User in register
             User.findOne({ 'google_id' : profile.id }, function(err, user) {
             
                          if (err)
                     return done(err);
                                         if (user) {
                     // user found!
+                         console.log("user:");
+                         console.log(user);
                          console.log("User exists");
                     return done(null, user);
-                }
+                         }
+                         
                              console.log("HERE4!");
                 var email = profile.emails[0].value;
+                         // if only can have lehigh email address
                // if (email.indexOf("@lehigh.edu", email.length - "@lehigh.edu".length) !== -1) {
                     var newUser = new User();
-
-                    // capture fields
-                    newUser.google_id = profile.id;
-                    newUser.token = token;
-                    newUser.name  = profile.displayName;
-                    newUser.email = email;
+                         
+                         // capture fields
+                        // newUser.chapter= "";
+                         newUser.google_id = profile.id;
+                         newUser.token = token;
+                         newUser.name  = profile.displayName;
+                         newUser.email = email;
+                         var chapid;
+                         
+                         //getting chapter
+                         Chapter.findOne({ 'email' : email }, function(err, chapter) {
+                                         
+                                         if (err)
+                                         console.log("member doesn't exist in chapter");
+                                         if (chapter) {
+                                         // user found!
+                                         console.log("chapter:");
+                                         console.log(chapter);
+                                         //console.log("Chapter exists");
+                                         //console.log(chapter);
+                                         console.log("Chapter Name: "+chapter.chapName);
+                                        
+                                         chapid=chapter._id;
+                                          console.log("Chapter ID: "+chapter._id);
+                                         
+                                         
+                                         newUser.google_id = profile.id;
+                                         newUser.token = token;
+                                         newUser.name  = profile.displayName;
+                                         newUser.email = email;
+                                         var chapid;
+                                         console.log("Chapter ID2: "+chapid);
+                                         newUser.chapter_id= chapid;
+                                         
+                                         // save the user
+                                         newUser.save(function(err) {
+                                                      if (err)
+                                                      throw err;
+                                                      console.log("Saving user");
+                                                      return done(null, newUser);
+                                                      });
+                                  
+                                         }
+                                         else{
+                                         console.log("chapter doesn't exist outside");
+                                         }
+                                         });
+                         
+         
                          
                         /* var request = gapi.client.plus.people.get({
                                                                    'userId' : 'me'
@@ -90,14 +162,8 @@ module.exports = function(passport) {
                     download(image_url, filepath, function () {
                         console.log('Saved picture ' + filepath);
                     });
-
-                    // save the user
-                    newUser.save(function(err) {
-                        if (err)
-                            throw err;
-                                 console.log("Saving user");
-                        return done(null, newUser);
-                    });
+  
+                         
                // }
                // else {
                //     return done(null, false, { message: 'Incorrect domain' });

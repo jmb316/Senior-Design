@@ -4,9 +4,56 @@ var router = express.Router();
 var passport = require('passport');
 
 /* GET home page. */
-router.get('/', checkAuth, function(req, res) {
-                res.render('index', { title: 'Home' });
+/*router.get('/', checkAuth, function(req, res) {
+           
+           var db = req.db;
+           var collection = db.get('chapters');
+           collection.findOne({'_id': req.session.user.chapter_id},function(e,docs){
+                              console.log(docs);
+                              console.log(docs.chapName);
+                              
+                              res.render('index', { name:req.session.user.name, email:req.session.user.email, google:req.session.user.google_id,chapid:docs.chapName});
+                              });
 });
+*/
+
+
+/* GET home page by chapter. */
+var chapter = require('../middleware/chapter');
+var messages = require('../middleware/mess');
+router.get('/', checkAuth, function(req, res) {
+           chapter.getFromId(req.session.user.chapter_id, function(chapters) {
+                            console.log(chapters);
+             console.log("chapterName"+chapters.chapName);
+                              console.log("chaptername"+chapters.chapname);
+           var db = req.db;
+           var collection = db.get('announcelist');
+           /*collection.findOne({},{},function(e,docs){
+            console.log(res.json(docs));
+            });*/
+                             collection.find({'chapter_id': req.session.user.chapter_id},function(err,messages){
+                           if (err)
+                           throw err;
+                           console.log("announcement1");
+                           console.log(messages);
+                           console.log("announcement2");
+                                           
+                           res.render('index', {name:req.session.user.name, email:req.session.user.email, google:req.session.user.google_id,chapname:chapters.chapName,currentUsers:messages,chapid:chapters._id});
+                          // callback(docs);
+                           });
+           
+                          /* collection.getAnnouncements('565b8c822e37fb0300e259ac', function(announce) {
+                                                     console.log("chaptes announcements index.js");
+                                               console.log(announce);
+                                                        res.render('index', {name:req.session.user.name, email:req.session.user.email, google:req.session.user.google_id,chapid:chapters.chapName,message:messages.newAnnounce});
+                                                     })
+                             */
+                             })
+           });
+
+/*end GET home page by chapter */
+
+
 
 
 /* GET chapter events page. */
@@ -15,14 +62,30 @@ router.get('/chapterevents', checkAuth, function(req, res) {
            });
 
 /* GET chapter signup page. */
-router.get('/chaptersignup',function(req, res) {
+router.get('/chaptersignup', function(req, res) {
            res.render('chaptersignup', { title: 'Chapter Signup' });
            });
 
+
 /* GET Food page. */
-router.get('/food', checkAuth,function(req, res) {
+/*router.get('/food', checkAuth,function(req, res) {
            res.render('food', { title: 'Food' });
-           });
+           });*/
+
+router.get('/food', function(req, res) {
+           console.log("messages");
+           var db = req.db;
+           var collection = db.get('foodlist');
+           collection.find( { _id: '563d0b06b478a26fc0d712ef' } ),(function(err, messages) {
+                                                                                             if (err) {
+                                                                 console.log(err);                            throw err;
+                                                                                             }
+                                                                                             console.log("messages");
+                                                                                             console.log(messages);
+                                                                                             //callback(messages);
+                                                                    })});
+          // });
+
 
 
 /* GET Login page. */
@@ -57,8 +120,16 @@ router.get('/membersignup', function(req, res) {
 
 
 router.get('/profile',checkAuth, function(req, res) {
-
-           res.render('profile', { name:req.session.user.name, email:req.session.user.email, google:req.session.user.google_id  });
+           console.log("chap in profile:"+req.session.user.chapter_id);
+           
+           var db = req.db;
+           var collection = db.get('chapters');
+           collection.findOne({'_id': req.session.user.chapter_id},function(e,docs){
+                                console.log(docs);
+                               console.log(docs.chapName);
+           
+           res.render('profile', { name:req.session.user.name, email:req.session.user.email, google:req.session.user.google_id,chapid:docs.chapName});
+                                   });
            });
 
 //Attempting session for profile
@@ -182,6 +253,7 @@ function checkAuth(req, res, next) {
          // console.log("user:"+req.body.email);
         console.log("user google id:"+req.session.user.google_id);
         console.log("user google email:"+req.session.user.email);
+        console.log("chapter id:"+req.session.user.chapter_id);
         //console.log("res: "+res.locals.user);
         //console.log("AUTH2!");
         return next();

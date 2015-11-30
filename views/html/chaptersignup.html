@@ -27,7 +27,7 @@
                                          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
                                          <![endif]-->
                                         
-                                        </head>
+    </head>
     
     <body>
         
@@ -94,46 +94,27 @@
             <div class="row">
                 <div class="col-md-8">
                     <h4>Chapter Roster</h4>
-                    <button id="btnAddChapter" class="btn btn-primary">Register Chapter</button>
                     <form name="sentMessage" id="chapterSignUp" novalidate>
                         <form role="form">
                             <p>WRITE INSTRUCTIONS HERE ABOUT TEMPLATE!!!!</p>
                             <button type="download" class="btn btn-primary">Download Roster Template</button>
-                            
-                            
-                        </form>
+                            <body onload="fileFunction()"></body>
+                            <input type="file" id="myFile" multiple size="50" onchange="fileFunction()">
+                                <p id="demo"></p>
+                                
+                                </form>
                         </div>
                 
             </div>
             <br><br>
             
+            <button id="btnAddChapter" class="btn btn-primary">Register Chapter</button>
         </fieldset></div><!-- /ADD USER-->
         
         
         
-        <br><br><br><br><div><div class="centered">
-        </div><br><button data-target="#myModal" data-toggle="modal" class="btn btn-primary btn-lg">Upload New File</button>
-        <table style="width:50%" class="table table-bordered table-striped"></table>
-        </div><div id="container_id"></div><div id="files_id">
-        </div><div id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
-            <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
-            <button type="button" data-dismiss="modal" aria-label="Close" class="close"></button>
-            <h4 id="myModalLabel" class="modal-title">Upload a file</h4></div>
-        <div class="modal-body">
-            <form id="groupForm" method="post" action="/upload" enctype="multipart/form-data" class="form-horizontal"><
-                div class="form-group">
-                <label class="col-xs-3 control-label">File</label>
-                <div class="col-xs-5">
-                    <input type="file" name="file" class="form-control"></div>
-                <div class="col-xs-5 col-xs-offset-3">
-                    <br>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                    <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
-                </div></div></form>
-            </div></div></div></div>
-        <div class="test"><div ng-view>
-        </div>
-        </div>
+        
+        
         
         
         <!-- Footer -->

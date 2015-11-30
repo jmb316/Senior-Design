@@ -89,7 +89,8 @@ html(lang='en')
         .col-lg-12
           h1.page-header
             span
-                p  #{chapname}
+              p  #{chapid}
+              span
       |             
       |             
       |             
@@ -103,19 +104,9 @@ html(lang='en')
             #announceList
               table.table.table-striped
                 tbody
-                    each key in currentUsers
-                        tr
-                            td
-                                p #{key.newAnnounce}
-                            td
-                                p #{key.timeStamp}
-                            td
-                                a.linkdeleteannounce(href='#', rel="#{key._id}") deleted?
             // announce LIST
             // ADD announce
             #addAnnounce
-              fieldset
-                input#inputChapName.form-control.input-lg(type='hidden', value='#{chapid}')
               fieldset
                 textarea#inputAnnounceName.form-control.input-lg(type='text', placeholder='New announcement...')
                 |                                 
