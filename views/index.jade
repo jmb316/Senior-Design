@@ -115,9 +115,9 @@ html(lang='en')
               fieldset
                 input#inputChapName.form-control.input-lg(type='hidden', value='#{chapid}')
               fieldset
-                textarea#inputAnnounceName.form-control.input-lg(type='text', placeholder='New announcement...')
-                |                                 
-                button#btnAddAnnounce Submit
+                -if(admin)
+                    textarea#inputAnnounceName.form-control.input-lg(type='text', placeholder='New announcement...')
+                    button#btnAddAnnounce Submit
             // /ADD announce
       |             
       .col-md-4.col-sm-8
