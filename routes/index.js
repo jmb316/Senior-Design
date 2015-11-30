@@ -21,24 +21,32 @@ var passport = require('passport');
 /* GET home page by chapter. */
 var chapter = require('../middleware/chapter');
 var messages = require('../middleware/mess');
+var messages = require('../middleware/mess');
 router.get('/', checkAuth, function(req, res) {
+           
+           //getting chapter
            chapter.getFromId(req.session.user.chapter_id, function(chapters) {
-                            console.log(chapters);
-             console.log("chapterName"+chapters.chapName);
-                              console.log("chaptername"+chapters.chapname);
+                         //   console.log(chapters);
+            // console.log("chapterName"+chapters.chapName);
+                            //  console.log("chaptername"+chapters.chapname);
            var db = req.db;
            var collection = db.get('announcelist');
+            var collectionUser = db.get('users');
            /*collection.findOne({},{},function(e,docs){
             console.log(res.json(docs));
             });*/
+                             //getting messages
                              collection.find({'chapter_id': req.session.user.chapter_id},function(err,messages){
                            if (err)
                            throw err;
-                           console.log("announcement1");
-                           console.log(messages);
-                           console.log("announcement2");
-                                           
-                           res.render('index', {name:req.session.user.name, email:req.session.user.email, google:req.session.user.google_id,chapname:chapters.chapName,currentUsers:messages,chapid:chapters._id});
+                           //console.log("announcement1");
+                           //console.log(messages);
+                           //console.log("announcement2");
+                                             collectionUser.findOne({'google_id': req.session.user.google_id},function(e,user){
+                                                                    console.log(user);
+                                                                    console.log("admin:"+user.admin);
+                                                                    
+                                                                    res.render('index', {name:req.session.user.name, email:req.session.user.email, google:req.session.user.google_id,chapname:chapters.chapName,currentUsers:messages,chapid:chapters._id,admin:user.admin});
                           // callback(docs);
                            });
            
@@ -47,7 +55,9 @@ router.get('/', checkAuth, function(req, res) {
                                                console.log(announce);
                                                         res.render('index', {name:req.session.user.name, email:req.session.user.email, google:req.session.user.google_id,chapid:chapters.chapName,message:messages.newAnnounce});
                                                      })
+                           
                              */
+                                             });
                              })
            });
 
@@ -132,10 +142,10 @@ router.get('/profile',checkAuth, function(req, res) {
                                                          console.log(user);
                                                          console.log("major:"+user.Major);
                                                         console.log("year:"+user.Year);
+                                        
 
-
-                              
-                                                         res.render('profile', { name:req.session.user.name, email:req.session.user.email, google:req.session.user.google_id,chapid:docs.chapName,id:req.session.user.google_id,year:user.Year,major:user.Major});
+                                                        
+                                                         res.render('profile', { name:req.session.user.name, email:req.session.user.email, google:req.session.user.google_id,chapid:docs.chapName,id:req.session.user.google_id,year:user.Year,major:user.Major, admin:user.admin});
                                                          });
                                    });
            });

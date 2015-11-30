@@ -10,7 +10,8 @@ var userSchema = Schema({
         token        : String,
         chapter_id   : String,
         year         : String,
-        major        : String
+        major        : String,
+        admin        : Boolean
 });
 
 // create the model for users and expose it to our app
