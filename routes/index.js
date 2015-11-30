@@ -123,12 +123,20 @@ router.get('/profile',checkAuth, function(req, res) {
            console.log("chap in profile:"+req.session.user.chapter_id);
            
            var db = req.db;
-           var collection = db.get('chapters');
-           collection.findOne({'_id': req.session.user.chapter_id},function(e,docs){
+           var collectionChap = db.get('chapters');
+            var collectionUser = db.get('users');
+           collectionChap.findOne({'_id': req.session.user.chapter_id},function(e,docs){
                                 console.log(docs);
                                console.log(docs.chapName);
-           
-           res.render('profile', { name:req.session.user.name, email:req.session.user.email, google:req.session.user.google_id,chapid:docs.chapName});
+                                  collectionUser.findOne({'google_id': req.session.user.google_id},function(e,user){
+                                                         console.log(user);
+                                                         console.log("major:"+user.Major);
+                                                        console.log("year:"+user.Year);
+
+
+                              
+                                                         res.render('profile', { name:req.session.user.name, email:req.session.user.email, google:req.session.user.google_id,chapid:docs.chapName,id:req.session.user.google_id,year:user.Year,major:user.Major});
+                                                         });
                                    });
            });
 

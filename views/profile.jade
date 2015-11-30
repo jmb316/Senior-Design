@@ -60,13 +60,16 @@ head
                     li.active Profile
         .row
             .col-sm-3
-                img.img-responsive.img-hover(src='http://placehold.it/200x200', alt='')
+                img.img-responsive(src= '/images/profile/#{id}.jpg', alt='')
             .col-sm-4
                 #userInfo
                     h2 #{name}
                     strong Email Address:
                     p #{email}
-                    p #{chapid}
+                    strong Major:
+                    p #{major}
+                    strong Year:
+                    p #{year}
 
 
 
