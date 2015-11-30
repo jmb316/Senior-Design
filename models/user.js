@@ -8,7 +8,9 @@ var userSchema = Schema({
         email        : String,
         google_id    : String,
         token        : String,
-        chapter_id      : String
+        chapter_id   : String,
+        year         : String,
+        major        : String
 });
 
 // create the model for users and expose it to our app
