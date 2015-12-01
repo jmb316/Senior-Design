@@ -9,7 +9,8 @@ var chapterSchema = Schema({
         email        : String,
         google_id    : String,
         token        : String,
-        chapter      : String
+        chapter      : String,
+        facebook      : String
 });
 
 // create the model for users and expose it to our app

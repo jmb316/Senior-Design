@@ -1,7 +1,7 @@
 // date variables
 var now = new Date();
 today = now.toISOString();
-            var tableContent="<table class='table table-striped'><tbody>";
+var tableContent="<table class='table table-striped'><tbody><th>Event</th><th>Date and Time</th><th>Attendees</th><th>Register</th>";
 var twoHoursLater = new Date(now.getTime() + (2*1000*60*60));
 twoHoursLater = twoHoursLater.toISOString();
 
@@ -58,7 +58,6 @@ function handleAuthClick(event) {
 
 // setup event details
 var resource = {
-    "summary": "Sample Event " + Math.floor((Math.random() * 10) + 1),
     "start": {
         "dateTime": today
     },
@@ -68,15 +67,45 @@ var resource = {
 };
 
 // function load the calendar api and make the api call
-function signup() {
+function signup(eventId,summary,start,end) {
+    alert("start:"+start);
+
+        alert(" end: "+end);
+    // setup event details
+    var update = {
+        "summary": summary,
+        "anyoneCanAddSelf": true,
+        "attendees": [
+                      {
+                      "email": "meriweiner@gmail.com"
+                      }
+                      ],
+        "start": {
+            "dateTime": start
+        },
+        "end": {
+            "dateTime": end
+        }
+        
+
+    };
     alert("in signup");
+        //console.log("eventID: "+eventID);
+     console.log("in signup");
+    
         console.log("in signup");
-    gapi.client.load('calendar', 'v3', function() {					// load the calendar api (version 3)
+   /* gapi.client.load('calendar', 'v3', function() {					// load the calendar api (version 3)
                      var request = gapi.client.calendar.events.insert({
                                                                       'calendarId':		'ftbioqlsgdfcp0sltprr7r7nqg@group.calendar.google.com',	// calendar ID
                                                                       "resource":			resource							// pass event details with api call
-                                                                      });
-                     
+                                                                      });*/
+    
+    gapi.client.load('calendar', 'v3', function() {					// load the calendar api (version 3)
+                     var request = gapi.client.calendar.events.patch({
+                                                                      'calendarId':		'ftbioqlsgdfcp0sltprr7r7nqg@group.calendar.google.com',
+                                                                              "eventId": eventId,
+                                                                      "resource":			update							// pass event details with api call
+                                                                      })
                      
                       //adding an event
                       request.execute(function(resp) {
@@ -118,7 +147,7 @@ function listUpcomingEvents() {
                                                    'timeMin': (new Date()).toISOString(),
                                                    'showDeleted': false,
                                                    'singleEvents': true,
-                                                   'maxResults': 10,
+                                                   'maxResults': 4,
                                                    'orderBy': 'startTime'
                                                    });
     
@@ -138,16 +167,31 @@ function listUpcomingEvents() {
                     
                     var timeStart = getTimeInfo(event.start.dateTime || event.start.date),
                     timeEnd = getTimeInfo(event.end.dateTime || event.end.date);
-                    
+                    var result="";
                     dateFormatted = getFormattedDate(dateStart, dateEnd);
                     //alert("eventid: "+event.id);
-        
+                    //console.log("event.id: "+event.id);
                     tableContent += '<tr>';
                     tableContent += '<td>'+event.summary+'</td>';
-                    tableContent += '<td>'+ dateFormatted +" "+timeStart+" - "+timeEnd+'</td>';
-                   tableContent += '<td><button type="button" id="btnsignup" onclick="signup()">Sign Up!</button></td>';
-                    tableContent += '</tr>';
-
+                    
+                    
+                    tableContent += '<td>'+ dateFormatted +" <br>"+timeStart+" - "+timeEnd+'</td><td>';
+                    var myArr=[event.id,event.summary,event.start.dateTime,event.end.dateTime];
+                    //alert(myArr[0]);
+                    
+                    for (var p in event.attendees) {
+                        if(event.attendees[p].displayName)
+                            tableContent += event.attendees[p].displayName  + ', ';
+                    //console.log(p + " : " + event.attendees[p].displayName);
+                    }
+                    tableContent += '</td>';
+                   // tableContent += '<td>'+'<input type="button" onClick="signup(\'' + this + '\')" name= '+myArr+'value="Sign Up"></input></td></tr>';
+                   // tableContent += '<td>'+'<input type="button" onClick="signup(\'' + myArr + '\')" value="Sign Up"></input></td></tr>';
+                    
+                    // tableContent += '<td>'+'<input type="button" '+'onClick=signup(\''+'event.summary'+','+'yetAnotherString'+'\')' +' value="Sign Up"></input></td></tr>';
+                    tableContent += '<td>'+'<input type="button" '+'onclick=" signup(\'' + event.id  +'\',\'' + event.summary +'\',\'' + event.start.dateTime  +'\',\''+ event.end.dateTime  + '\')"' +' value="Sign Up"></input></td></tr>';
+                    
+                    //onclick="return ReAssign(\'' + valuationId  +'\',\'' + user + '\')"
                     }
                     } else {
                     appendPre('No upcoming events found.');
@@ -157,8 +201,11 @@ function listUpcomingEvents() {
                     console.log(tableContent);
                     appendPre(tableContent);
                     });
-    
 }
+
+
+ // input#inputChapName.form-control.input-lg(type='hidden', value='#{chapid}')
+//<input id="inputChapName" type="hidden" value="565b81a0e4b030fba33dcafb" class="form-control input-lg">
 
 /**
  * Append a pre element to the body containing the given message

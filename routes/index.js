@@ -35,7 +35,7 @@ router.get('/', checkAuth, function(req, res) {
                                     
                                              //getting user
                                     collectionUser.findOne({'google_id': req.session.user.google_id},function(e,user){
-                                        res.render('index', {name:req.session.user.name, email:req.session.user.email, google:req.session.user.google_id,chapname:chapters.chapName,currentUsers:messages,chapid:req.session.user.chapter_id,admin:user.admin});
+                                                           res.render('index', {name:req.session.user.name, email:req.session.user.email, google:req.session.user.google_id,chapname:chapters.chapName,currentUsers:messages,chapid:req.session.user.chapter_id,admin:user.admin,facebook:chapters.facebook});
                                                 });
             })
         });
