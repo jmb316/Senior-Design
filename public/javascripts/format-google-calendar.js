@@ -1,4 +1,4 @@
-alert("in format-google-calendar.js");
+//alert("in format-google-calendar.js");
 
 //Get temp array with information abou day in followin format: [day number, month number, year]
 var getDateInfo = function(date) {
