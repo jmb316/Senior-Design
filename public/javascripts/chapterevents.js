@@ -1,7 +1,7 @@
 // date variables
 var now = new Date();
 today = now.toISOString();
-
+            var tableContent="<table class='table table-striped'><tbody>";
 var twoHoursLater = new Date(now.getTime() + (2*1000*60*60));
 twoHoursLater = twoHoursLater.toISOString();
 
@@ -40,9 +40,9 @@ function handleAuthResult(authResult) {
     if (authResult && !authResult.error) {
         authorizeButton.style.visibility = 'hidden';			// if authorized, hide button
         resultPanel.className = resultPanel.className.replace( /(?:^|\s)panel-danger(?!\S)/g , '' )	// remove red class
-        resultPanel.className += ' panel-success';				// add green class
-        resultTitle.innerHTML = 'Application Authorized'		// display 'authorized' text
-        makeApiCall();											// call the api if authorization passed
+        resultPanel.className += '';				// add green class
+        resultTitle.innerHTML = ''		// display 'authorized' text
+        loadCalendarApi();											// load calendarif authorization passed
     } else {													// otherwise, show button
         authorizeButton.style.visibility = 'visible';
         resultPanel.className += ' panel-danger';				// make panel red
@@ -68,8 +68,9 @@ var resource = {
 };
 
 // function load the calendar api and make the api call
-function makeApiCall() {
-    //alert("make API call");
+function signup() {
+    alert("in signup");
+        console.log("in signup");
     gapi.client.load('calendar', 'v3', function() {					// load the calendar api (version 3)
                      var request = gapi.client.calendar.events.insert({
                                                                       'calendarId':		'ftbioqlsgdfcp0sltprr7r7nqg@group.calendar.google.com',	// calendar ID
@@ -87,21 +88,18 @@ function makeApiCall() {
                                      // alert("There was a problem. Reload page and try again.");
                       }
                       console.log(resp);
+
                       });
                      
                      
-                     //loading calendar
-                     loadCalendarApi();
-                     
-                     
-                     
+                     //loading calendar after add
+                location.reload (true);
+     
+                    
                      
                      
                      });
 }
-
-
-
 
 
 
@@ -126,7 +124,7 @@ function listUpcomingEvents() {
     
     request.execute(function(resp) {
                     var events = resp.items;
-                    appendPre('Upcoming events:');
+                    //appendPre('Upcoming events:');
                     
                     if (events.length > 0) {
                     for (i = 0; i < events.length; i++) {
@@ -143,16 +141,23 @@ function listUpcomingEvents() {
                     
                     dateFormatted = getFormattedDate(dateStart, dateEnd);
                     //alert("eventid: "+event.id);
-                    
-                    appendPre(event.summary + ': ' + dateFormatted +" "+timeStart+" - "+timeEnd);
-                    //alert(event.summary + ' (' + when + ')')
+        
+                    tableContent += '<tr>';
+                    tableContent += '<td>'+event.summary+'</td>';
+                    tableContent += '<td>'+ dateFormatted +" "+timeStart+" - "+timeEnd+'</td>';
+                   tableContent += '<td><button type="button" id="btnsignup" onclick="signup()">Sign Up!</button></td>';
+                    tableContent += '</tr>';
+
                     }
                     } else {
                     appendPre('No upcoming events found.');
                     //alert('No upcoming events found.');
                     }
-                    
+                  
+                    console.log(tableContent);
+                    appendPre(tableContent);
                     });
+    
 }
 
 /**
@@ -161,8 +166,25 @@ function listUpcomingEvents() {
  *
  * @param {string} message Text to be placed in pre element.
  */
+//$.getJSON( '/announce/announcelist', function( data ) {
+          // Stick our user data array into a userlist variable in the global object
+          
+          // For each item in our JSON, add a table row and cells to the content string
+        /*  $.each(data, function(){
+                 tableContent += '<tr>';
+                 tableContent += '<td>'+this.newAnnounce+'</td>';
+                 tableContent += '<td> Posted '+this.timeStamp+'</td>';
+                 tableContent += '<td><a href="#" class="linkdeleteannounce" rel="' + this._id + '">delete?</a></td>';
+                 
+                 tableContent += '</tr>';
+                 });*/
+          
+          // Inject the whole content string into our existing HTML table
+           $('#announceList table tbody').html(tableContent);
+        //  });
+
 function appendPre(message) {
-    var pre = document.getElementById('output');
-    var textContent = document.createTextNode(message + '\n');
-    pre.appendChild(textContent);
+   // var pre = document.getElementById('output');
+   // var textContent = document.createTextNode(message + '\n');
+    document.getElementById("output").innerHTML = message+'</table></tbody>';
 }

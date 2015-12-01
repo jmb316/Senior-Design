@@ -1,4 +1,131 @@
-extends layout.jade
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    |     
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    |     
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    |     
+    meta(name='description', content='')
+    |     
+    meta(name='author', content='')
+    |     
+    title Chapter Events
+    // Bootstrap Core CSS
+    link(href='css/bootstrap.min.css', rel='stylesheet')
+    // Custom CSS
+    link(href='css/modern-business.css', rel='stylesheet')
+    // Custom Fonts
+    link(href='font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+    // Custom Calendar Responsive
+    link(href='css/calendar.css', rel='stylesheet', type='text/css')
+    |   
+    script(src='https://apis.google.com/js/client.js?onload=handleClientLoad')
+    // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+    // WARNING: Respond.js doesn't work if you view the page via file://
+    //if lt IE 9
+      script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+      |         
+      script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
+  body(onload='handleClientLoad()')
+    // Navigation
+    nav.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+      .container
+        // Brand and toggle get grouped for better mobile display
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+            span.sr-only Toggle navigation
+            |                     
+            span.icon-bar
+            |                     
+            span.icon-bar
+            |                     
+            span.icon-bar
+          |                 
+          a.navbar-brand(href='/') App name
+        // Collect the nav links, forms, and other content for toggling
+        #bs-example-navbar-collapse-1.collapse.navbar-collapse
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href='/chapterevents') Chapter Events
+            |                     
+            li
+              a(href='/roster') Roster
+            |                     
+            li
+              a(href='/food') Food
+            |                     
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown')
+                | Profile 
+                b.caret
+              |                         
+              ul.dropdown-menu
+                li
+                  a(href='/profile') Profile
+                |                             
+                li
+                  a(href='/logout') Log Out
+                |                             
+                li
+        // /.navbar-collapse
+      // /.container
+    // Page Content
+    .container
+      // Page Heading/Breadcrumbs
+      .row
+        .col-lg-12
+          h1.page-header
+            | Chapter Events
+          |                 
+          ol.breadcrumb
+            li
+              a(href='/') Home
+            |                     
+            li.active Chapter Events
+      |         
+      hr
+      // /.row
+      .container(style='margin-top:20px;')
+        .row
+          .col-xs-6
+            script(src='javascripts/format-google-calendar.js')
+            |                     
+            #result-panel.panel.panel-danger
+              .panel-heading
+                h3 Upcoming Events
+                button#authorize-button.btn.btn-primary Authorize
+                |                            
+                h3#result-title.panel-title Application Not Authorized
+              // .panel-heading
+              .panel-body
 
-block content
-    include html/chapterevents.html
+                #event-response
+                    #output
+                        table.table.table-striped
+                            tbody
+
+
+
+              // .panel-body
+            // .panel
+          // Responsive iFrame
+          .responsive-iframe-container
+            iframe(src='https://calendar.google.com/calendar/embed?mode=WEEK&height=600&wkst=1&bgcolor=%23FFFFFF&src=ftbioqlsgdfcp0sltprr7r7nqg%40group.calendar.google.com&color=%238C500B&ctz=America%2FNew_York', style='border-width:0', width='800', height='600', frameborder='0', scrolling='no')
+          |                 
+          hr
+          // Footer
+          footer
+            .row
+              .col-lg-12
+                p Copyright &copy; Your Website 2015
+        // /.container
+        // Calendar JS
+        // jQuery
+        script(src='javascripts/jquery.min.js')
+        |     
+        script(src='javascripts/bootstrap.min.js')
+        // <script src="javascripts/calendar.js"></script>
+        // <script src="javascripts/calendarcheckbox.js"></script>
+        script(src='javascripts/chapterevents.js')
