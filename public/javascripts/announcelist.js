@@ -111,15 +111,20 @@ function dateTime()
         hours = 12;
         AMPM="AM"
     }
-    var minutes= currentdate.getMinutes();
-    if (minutes <10);
-    minutes="0"+currentdate.getMinutes();
+    var minutes=currentdate.getMinutes();
+    if (minutes == 0){
+        minutes = "00";
+    }
+    else if (minutes <10){
+        minutes="0" + currentdate.getMinutes();
+    }
+    
     
     var datetime = (currentdate.getMonth()+1) + "/"
     + (currentdate.getDate())  + "/"
     + currentdate.getFullYear() + " "
     + hours + ":"
-    + minutes+AMPM;
+    + minutes+ " " + AMPM;
     return datetime;
    // alert(datetime);
 }

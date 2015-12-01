@@ -41,7 +41,7 @@ html(lang='en')
             |                                                         
             span.icon-bar
           |                                                     
-          a.navbar-brand(href='/') App name
+          a.navbar-brand(href='/') YourOrg
         // Collect the nav links, forms, and other content for toggling
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-right
@@ -108,7 +108,7 @@ html(lang='en')
                                 p #{key.timeStamp}
                             td
                                 -if(admin)
-                                    a.linkdeleteannounce(href='#', rel="#{key._id}") delete?
+                                    a.linkdeleteannounce(href='#', rel="#{key._id}") <input type="button" onClick="signup(\'' + event.id + '\')"value="Delete"></input></td>
             // announce LIST
             // ADD announce
             #addAnnounce
@@ -153,9 +153,9 @@ html(lang='en')
     hr
     // Footer
     footer
-      .row
-        .col-lg-12
-          p Copyright &copy; Your Website 2014
+        .row
+            .col-lg-12
+                p YourOrg 2015
     // /.container
     //
       jQuery
