@@ -1,0 +1,13 @@
+{
+    "_id": {
+        "$oid": "565b81a0e4b030fba33dcafb"
+    },
+    "email": [
+        "test@gmail.com",
+        "jennifer.morgan.barry@gmail.com",
+        "mbw216@lehigh.edu"
+    ],
+    "chapName": "Zeta Tau Alpha",
+    "facebook": "LehighZTA",
+    "__v": 0
+}

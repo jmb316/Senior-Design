@@ -103,10 +103,23 @@ module.exports = function(passport) {
                          var chapid;
                          
                          //getting chapter
-                         Chapter.findOne({ 'email' : email }, function(err, chapter) {
-                                         
-                                         if (err)
-                                         console.log("member doesn't exist in chapter");
+                         //db.students.find( { score: { $gt: 0, $lt: 2 } } )
+                         //{ 'address' : email }
+                         //Chapter.findOne({ "email": { "address": email}}, function(err, chapter) {
+                         
+                         /*{
+                         "email": {
+                         "address": email
+                         }}
+                         */
+                         /*{
+                         "name.first": "Yukihiro",
+                         "name.last": "Matsumoto"
+                         }*/
+                         console.log("email: "+email);
+                         Chapter.findOne({ 'email.address' : email }, function(err, chapter){
+                        // , function(err, chapter) {
+                                      
                                          if (chapter) {
                                          // user found!
                                          console.log("chapter:");
@@ -138,6 +151,7 @@ module.exports = function(passport) {
                                          }
                                          else{
                                          console.log("chapter doesn't exist outside");
+                                         console.log("err: "+err);//return err;
                                          }
                                          });
                          
@@ -155,8 +169,13 @@ module.exports = function(passport) {
                                          });*/
                          
                     //var image_url= "gapi.client.plus.people.get.image/url";
+                        var img='https://www.googleapis.com/plus/v1/people/'+profile.id+'?fields=image&key=AIzaSyCnjBi_r7BqHgKIY37bH5bzdzddoXAdYjs';
+
+
                     var image_url = "https://www.googleapis.com/plus/v1/people";
-                         console.log("url: "+image_url);
+                       
+                            console.log("url: "+img);  
+                         
                     var basepath = __dirname.substring(0, __dirname.lastIndexOf("/"));
                     var filepath = basepath + '/public/images/profile/' + profile.id + '.jpg';
                     download(image_url, filepath, function () {
