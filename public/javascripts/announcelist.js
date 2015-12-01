@@ -1,7 +1,5 @@
 // DOM Ready =============================================================
 $(document).ready(function() {
-    populateAnnounceTable();
-                  
     // Add User button click
     $('#btnAddAnnounce').on('click', addAnnounce);
                   
@@ -10,32 +8,6 @@ $(document).ready(function() {
 });
 
 // Functions =============================================================
-
-
-// Fill table with data
-function populateAnnounceTable() {
-    
-    // Empty content string
-    var tableContent = '';
-    // jQuery AJAX call for JSON
-    $.getJSON( '/announce/announcelist', function( data ) {
-              // Stick our user data array into a userlist variable in the global object
-              
-              // For each item in our JSON, add a table row and cells to the content string
-              $.each(data, function(){
-                     tableContent += '<tr>';
-                     tableContent += '<td>'+this.newAnnounce+'</td>';
-                          tableContent += '<td> Posted '+this.timeStamp+'</td>';
-                     tableContent += '<td><a href="#" class="linkdeleteannounce" rel="' + this._id + '">delete?</a></td>';
-               
-                     tableContent += '</tr>';
-                     });
-              
-              // Inject the whole content string into our existing HTML table
-             // $('#announceList table tbody').html(tableContent);
-              });
-};
-
 
 // Add User
 function addAnnounce(event) {
@@ -50,7 +22,6 @@ function addAnnounce(event) {
 
     // Check and make sure errorCount's still at zero
     if(errorCount === 0) {
-         alert("alert: "+$('#addAnnounce fieldset input#inputChapName').val());
         // If it is, compile all user info into one object
         var newAnnounce = {
             'newAnnounce': $('#addAnnounce fieldset textarea#inputAnnounceName').val(),
@@ -73,7 +44,6 @@ function addAnnounce(event) {
                        $('#addAnnounce fieldset textarea').val('');
                        
                        // Update the table
-                       populateAnnounceTable();
                        location.reload (true);
                        }
                        else {
@@ -95,7 +65,7 @@ function addAnnounce(event) {
 
 // Delete User
 function deleteAnnounce(event) {
-    alert("DELETE!");
+   // alert("DELETE!");
     event.preventDefault();
     
     // Pop up a confirmation dialog
@@ -103,7 +73,6 @@ function deleteAnnounce(event) {
     
     // Check and make sure the user confirmed
     if (confirmation === true) {
-                               alert("true");
         // If they did, do our delete
         $.ajax({
                type: 'DELETE',
@@ -117,18 +86,14 @@ function deleteAnnounce(event) {
                        alert('Error: ' + response.msg);
                        }
                        
-                       // Update the table
-                       populateAnnounceTable();
                        location.reload (true);
                        
                        });
         
     }
     else {
-         alert("false");
         // If they said no to the confirm, do nothing
         return false;
-        
     }
     
 };
@@ -156,5 +121,5 @@ function dateTime()
     + hours + ":"
     + minutes+AMPM;
     return datetime;
-    alert(datetime);
+   // alert(datetime);
 }

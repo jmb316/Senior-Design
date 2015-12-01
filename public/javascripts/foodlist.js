@@ -1,10 +1,9 @@
 // DOM Ready =============================================================
 $(document).ready(function() {
 
-    populateFoodTable();
                   
     // Add User button click
-    $('#btnAddFood').on('click', addFood);
+    $('#btnAddFoods').on('click', addFood);
                   
     // Delete User link click
     $('#foodList table tbody').on('click', 'td a.linkdeletefood', deleteFood);
@@ -14,48 +13,25 @@ $(document).ready(function() {
 // Functions =============================================================
 
 
-// Fill table with data
-function populateFoodTable() {
-    
-    // Empty content string
-    var tableContent = '';
-    // jQuery AJAX call for JSON
-    $.getJSON( '/foods/foodlist', function( data ) {
-              // Stick our user data array into a userlist variable in the global object
-              userListData = data;
-              
-              // For each item in our JSON, add a table row and cells to the content string
-              $.each(data, function(){
-                     tableContent += '<tr>';
-                     tableContent += '<td>'+this.newFood+'</td>';
-                     tableContent += '<td><a href="#" class="linkdeletefood" rel="' + this._id + '">delete?</a></td>';
-                     tableContent += '</tr>';
-                     });
-              
-              // Inject the whole content string into our existing HTML table
-              $('#foodList table tbody').html(tableContent);
-              });
-};
-
-
-
-
 // Add User
 function addFood(event) {
+    //alert("in add food!");
+    //console.log("in add food!");
     event.preventDefault();
     
     // Super basic validation - increase errorCount variable if any fields are blank
     var errorCount = 0;
-    $('#addFood input').each(function(index, val) {
+    $('#addFood textarea').each(function(index, val) {
                              if($(this).val() === '') { errorCount++; }
                              });
     
     // Check and make sure errorCount's still at zero
     if(errorCount === 0) {
-        console.log("food: "+  $('#addFood fieldset input#inputFoodName').val());
+       // console.log("food: "+  $('#addFood fieldset textarea#inputFoodName').val());
         // If it is, compile all user info into one object
         var newFood = {
-            'newFood': $('#addFood fieldset input#inputFoodName').val(),
+            'newFood': $('#addFood fieldset textarea#inputFoodName').val(),
+             'chapter_id':$('#addFood fieldset input#inputChapName').val()
         }
       //  alert($('#addUser fieldset input#inputUserName').val());
         // Use AJAX to post the object to our adduser service
@@ -70,10 +46,10 @@ function addFood(event) {
                        if (response.msg === '') {
                        
                        // Clear the form inputs
-                       $('#addFood fieldset input').val('');
+                       $('#addFood fieldset textarea').val('');
                        
                        // Update the table
-                       populateFoodTable();
+                       location.reload (true);
                        
                        }
                        else {
@@ -117,9 +93,7 @@ function deleteFood(event) {
                        alert('Error: ' + response.msg);
                        }
                        
-                       // Update the table
-                       populateFoodTable();
-                       
+                    location.reload (true);
                        });
         
     }
