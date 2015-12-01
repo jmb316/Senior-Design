@@ -134,8 +134,25 @@ router.get('/profile',checkAuth, function(req, res) {
 
 /* GET roster page. */
 router.get('/roster', checkAuth,function(req, res) {
-           res.render('roster', { title: 'Roster' });
+           
+           var db = req.db;
+           var collectionChap = db.get('chapters');
+           var collectionUser = db.get('users');
+           collectionChap.findOne({'_id': req.session.user.chapter_id},function(e,docs){
+                                  console.log(docs);
+                                  console.log(docs.chapName);
+                                  collectionUser.findOne({'google_id': req.session.user.google_id},function(e,user){
+                                                        // console.log(user);
+                                                          console.log("major:"+user.name);
+                                                         console.log("year:"+user.Year);
+                                  
+                                                         
+                                                         res.render('roster', { rost:docs, chap:docs.chapName,major:user.name});
+                                                         });
+                                  });
            });
+
+
 
 /* GET template page. */
 router.get('/template', checkAuth, function(req, res) {
