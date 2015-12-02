@@ -84,22 +84,21 @@ html(lang='en')
               a(href='/') Home
             |                     
             li.active Chapter Events
-      |         
-      hr
       // /.row
       .container(style='margin-top:20px;')
         .row
+            button#authorize-button.btn.btn-primary Click here to Authorize Calendar
+        .row
           .col-xs-6
             script(src='javascripts/format-google-calendar.js')
-            |                     
-            #result-panel.panel.panel-danger
+            #result-panel.panel
               .panel-heading
-                h3 Upcoming Events
-                button#authorize-button.btn.btn-primary Authorize
-                |                            
-                h3#result-title.panel-title Application Not Authorized
+                h3 Sign Up for Upcoming Events
+                h3#result-title.panel-title
               // .panel-heading
+
               .panel-body
+
                 #addAnnounce
                     #event-response
                         #output
