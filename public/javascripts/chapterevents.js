@@ -67,19 +67,30 @@ var resource = {
 };
 
 // function load the calendar api and make the api call
-function signup(eventId,summary,start,end) {
-    alert("start:"+start);
+function signup(eventId,summary,start,end,attendees) {
+    attendees+="jmb16@lehigh.edu";
+    var splitAttend = attendees.split(" ");
 
-        alert(" end: "+end);
     // setup event details
+
+    var t='[';
+    for(var i=0;i<splitAttend.length;i++)
+    {
+        t+='{"email":"'+splitAttend[i]+'"},';
+
+    }
+    var str = t.substring(0, t.length - 1);
+    str+=']';
+    console.log("t: "+str);
+    // "attendees":[{"email":splitAttend[0]},{"email":splitAttend[1]}],
+   var jsonYAY=  JSON.parse(str);
+
     var update = {
         "summary": summary,
         "anyoneCanAddSelf": true,
-        "attendees": [
-                      {
-                      "email": "meriweiner@gmail.com"
-                      }
-                      ],
+       // "attendees":[{"email":splitAttend[0]},{"email":splitAttend[1]}],
+       "attendees": jsonYAY,
+        
         "start": {
             "dateTime": start
         },
@@ -89,11 +100,7 @@ function signup(eventId,summary,start,end) {
         
 
     };
-    alert("in signup");
-        //console.log("eventID: "+eventID);
-     console.log("in signup");
-    
-        console.log("in signup");
+
    /* gapi.client.load('calendar', 'v3', function() {					// load the calendar api (version 3)
                      var request = gapi.client.calendar.events.insert({
                                                                       'calendarId':		'ftbioqlsgdfcp0sltprr7r7nqg@group.calendar.google.com',	// calendar ID
@@ -101,7 +108,7 @@ function signup(eventId,summary,start,end) {
                                                                       });*/
     
     gapi.client.load('calendar', 'v3', function() {					// load the calendar api (version 3)
-                     var request = gapi.client.calendar.events.patch({
+                     var request = gapi.client.calendar.events.update({
                                                                       'calendarId':		'ftbioqlsgdfcp0sltprr7r7nqg@group.calendar.google.com',
                                                                               "eventId": eventId,
                                                                       "resource":			update							// pass event details with api call
@@ -147,7 +154,6 @@ function listUpcomingEvents() {
                                                    'timeMin': (new Date()).toISOString(),
                                                    'showDeleted': false,
                                                    'singleEvents': true,
-                                                   'maxResults': 4,
                                                    'orderBy': 'startTime'
                                                    });
     
@@ -178,18 +184,30 @@ function listUpcomingEvents() {
                     tableContent += '<td>'+ dateFormatted +" <br>"+timeStart+" - "+timeEnd+'</td><td>';
                     var myArr=[event.id,event.summary,event.start.dateTime,event.end.dateTime];
                     //alert(myArr[0]);
-                    
+                    var attendees="";
                     for (var p in event.attendees) {
                         if(event.attendees[p].displayName)
                             tableContent += event.attendees[p].displayName  + ', ';
-                    //console.log(p + " : " + event.attendees[p].displayName);
-                    }
-                    tableContent += '</td>';
-                   // tableContent += '<td>'+'<input type="button" onClick="signup(\'' + this + '\')" name= '+myArr+'value="Sign Up"></input></td></tr>';
-                   // tableContent += '<td>'+'<input type="button" onClick="signup(\'' + myArr + '\')" value="Sign Up"></input></td></tr>';
+                        else
+                            tableContent += event.attendees[p].email + ', ';
+                        attendees += event.attendees[p].email + ' ';
+                        //attendees += '{"email":"';
+                       // attendees+=event.attendees[p].email+'"}, ';
+                   
+                    console.log("attendees:"+attendees);
                     
+                    var splitAttend = attendees.split(" ");
+                    var jsonString = JSON.stringify(splitAttend);
+                    console.log(splitAttend);
+                    console.log(jsonString);
+
+                    }
+                     //alert(p + " : " + event.attendees[p].displayName);
+                     // alert("attendees:"+attendees);
+                    tableContent += '</td>';
+
                     // tableContent += '<td>'+'<input type="button" '+'onClick=signup(\''+'event.summary'+','+'yetAnotherString'+'\')' +' value="Sign Up"></input></td></tr>';
-                    tableContent += '<td>'+'<input type="button" '+'onclick=" signup(\'' + event.id  +'\',\'' + event.summary +'\',\'' + event.start.dateTime  +'\',\''+ event.end.dateTime  + '\')"' +' value="Sign Up"></input></td></tr>';
+                    tableContent += '<td>'+'<input type="button" '+'onclick=" signup(\'' + event.id  +'\',\'' + event.summary +'\',\'' + event.start.dateTime  +'\',\''+ event.end.dateTime  +'\', \''+ attendees  + '\')"' +' value="Sign Up"></input></td></tr>';
                     
                     //onclick="return ReAssign(\'' + valuationId  +'\',\'' + user + '\')"
                     }
@@ -203,28 +221,6 @@ function listUpcomingEvents() {
                     });
 }
 
-
- // input#inputChapName.form-control.input-lg(type='hidden', value='#{chapid}')
-//<input id="inputChapName" type="hidden" value="565b81a0e4b030fba33dcafb" class="form-control input-lg">
-
-/**
- * Append a pre element to the body containing the given message
- * as its text node.
- *
- * @param {string} message Text to be placed in pre element.
- */
-//$.getJSON( '/announce/announcelist', function( data ) {
-          // Stick our user data array into a userlist variable in the global object
-          
-          // For each item in our JSON, add a table row and cells to the content string
-        /*  $.each(data, function(){
-                 tableContent += '<tr>';
-                 tableContent += '<td>'+this.newAnnounce+'</td>';
-                 tableContent += '<td> Posted '+this.timeStamp+'</td>';
-                 tableContent += '<td><a href="#" class="linkdeleteannounce" rel="' + this._id + '">delete?</a></td>';
-                 
-                 tableContent += '</tr>';
-                 });*/
           
           // Inject the whole content string into our existing HTML table
            $('#announceList table tbody').html(tableContent);
