@@ -45,7 +45,7 @@ function handleAuthResult(authResult) {
         loadCalendarApi();											// load calendarif authorization passed
     } else {													// otherwise, show button
         authorizeButton.style.visibility = 'visible';
-        resultPanel.className += ' panel-danger';				// make panel red
+        //resultPanel.className += ' panel-danger';				// make panel red
         authorizeButton.onclick = handleAuthClick;				// setup function to handle button click
     }
 }
@@ -55,16 +55,6 @@ function handleAuthClick(event) {
     gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
     return false;
 }
-
-// setup event details
-var resource = {
-    "start": {
-        "dateTime": today
-    },
-    "end": {
-        "dateTime": twoHoursLater
-    }
-};
 
 // function load the calendar api and make the api call
 function signup(eventId,summary,start,end,attendees) {
@@ -81,7 +71,7 @@ function signup(eventId,summary,start,end,attendees) {
     }
     var str = t.substring(0, t.length - 1);
     str+=']';
-    console.log("t: "+str);
+    //console.log("t: "+str);
     // "attendees":[{"email":splitAttend[0]},{"email":splitAttend[1]}],
    var jsonYAY=  JSON.parse(str);
 
@@ -194,12 +184,12 @@ function listUpcomingEvents() {
                         //attendees += '{"email":"';
                        // attendees+=event.attendees[p].email+'"}, ';
                    
-                    console.log("attendees:"+attendees);
+                    //console.log("attendees:"+attendees);
                     
                     var splitAttend = attendees.split(" ");
                     var jsonString = JSON.stringify(splitAttend);
-                    console.log(splitAttend);
-                    console.log(jsonString);
+                   // console.log(splitAttend);
+                   // console.log(jsonString);
 
                     }
                      //alert(p + " : " + event.attendees[p].displayName);
@@ -216,7 +206,7 @@ function listUpcomingEvents() {
                     //alert('No upcoming events found.');
                     }
                   
-                    console.log(tableContent);
+                    //console.log(tableContent);
                     appendPre(tableContent);
                     });
 }
