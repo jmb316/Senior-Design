@@ -1,0 +1,18 @@
+/*Source: http://thewebrocks.com/publications/smashingbook3/todolist/*/
+* {
+    margin: 0;
+}
+
+body {
+    padding: 2em;
+    font-size: 15px;
+    font-family: helvetica, arial, sans-serif;
+}
+form {
+    color: black;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+#btnAddAnnounce{
+    color: #286090;
+}
