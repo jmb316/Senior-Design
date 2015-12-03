@@ -10,9 +10,9 @@ var calId=$('#addEvent fieldset input#inputGoogleCal').val();
 
 //TODO: get from config file
 //heroku:
-var clientId = '316615911187-duaavj04u4g1poomqp7dpm76pjuf2642.apps.googleusercontent.com';
+//var clientId = '316615911187-duaavj04u4g1poomqp7dpm76pjuf2642.apps.googleusercontent.com';
 //local:
-//var clientId= '316615911187-g6qp9ghdv970gcnl4c2g6j90koov8chc.apps.googleusercontent.com';
+var clientId= '316615911187-g6qp9ghdv970gcnl4c2g6j90koov8chc.apps.googleusercontent.com';
 
 var apiKey = 'AIzaSyCnjBi_r7BqHgKIY37bH5bzdzddoXAdYjs';
 
@@ -151,6 +151,83 @@ function loadCalendarApi() {
     
 }
 
+
+
+function addEvent()
+{
+    
+    var details = {
+        "summary": summary,
+        "anyoneCanAddSelf": true,
+        // "attendees":[{"email":splitAttend[0]},{"email":splitAttend[1]}],
+        "attendees": jsonYAY,
+        
+        "start": {
+            "dateTime": start
+        },
+        "end": {
+            "dateTime": end
+        }
+        
+        
+    };
+    
+     gapi.client.load('calendar', 'v3', function() {					// load the calendar api (version 3)
+     var request = gapi.client.calendar.events.insert({
+     'calendarId':		calId,	// calendar ID
+     "resource":			details							// pass event details with api call
+                                                      });
+                      });
+                      //adding an event
+                      
+                      request.execute(function(resp) {
+                                      if(resp.status=='confirmed') {
+                                      console.log("event added");
+                                      } else {
+                                      console.log(resp);
+                                      }
+                                      });
+}
+
+function deleteEvent(eventId)
+ {
+     alert("in delete event!");
+     
+     gapi.client.load('calendar', 'v3', function() {					// load the calendar api (version 3)
+                      
+                      var request = gapi.client.calendar.events.delete({
+                                                                       'calendarId':calId,
+                                                                       "eventId": eventId,
+                                                                     						// pass event details with api call
+                                                                       });
+                      
+                      //adding an event
+                      
+                      request.execute(function(resp) {
+                                      if(resp.status=='confirmed') {
+                                      //alert("Event deleted successfully");
+                                      } else {
+                                      // document.getElementById('event-response').innerHTML = "There was a problem. Reload page and try again.";
+                                      // alert("There was a problem. Reload page and try again.");
+                                             console.log(resp);
+                                      
+                                      }
+                                      
+                               
+                                      
+                                      });
+                      
+                      
+                      //loading calendar after add
+                      location.reload (true);
+                      
+                      
+                      
+                      
+                      });
+ }
+
+
 /**
  * Print the summary and start datetime/date of the next ten events in
  * the authorized user's calendar. If no events are found an
@@ -216,8 +293,8 @@ function listUpcomingEvents() {
                     tableContent += '</td>';
 
                     // tableContent += '<td>'+'<input type="button" '+'onClick=signup(\''+'event.summary'+','+'yetAnotherString'+'\')' +' value="Sign Up"></input></td></tr>';
-                    tableContent += '<td>'+'<input type="button" '+'onclick=" signup(\'' + event.id  +'\',\'' + event.summary +'\',\'' + event.start.dateTime  +'\',\''+ event.end.dateTime  +'\', \''+ attendees  + '\')"' +' value="Sign Up"></input></td></tr>';
-                    
+                    tableContent += '<td>'+'<input type="button" '+'onclick=" signup(\'' + event.id  +'\',\'' + event.summary +'\',\'' + event.start.dateTime  +'\',\''+ event.end.dateTime  +'\', \''+ attendees  + '\')"' +' value="    Sign Up   "></input><br><br><input type="button"value="Delete Event" onclick="deleteEvent(\''+event.id+ '\')"'+'</input></td></tr>';
+                    //console.log(tableContent);
                     //onclick="return ReAssign(\'' + valuationId  +'\',\'' + user + '\')"
                     }
                     } else {
