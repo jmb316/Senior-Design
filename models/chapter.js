@@ -6,7 +6,10 @@ var Schema = mongoose.Schema;
 var chapterSchema = Schema({
         
         chapName     : String,
-        email        : String,
+        email : [{
+                    name : String,
+                    address : String
+                        }],
         google_id    : String,
         token        : String,
         chapter      : String,

@@ -4,14 +4,15 @@ today = now.toISOString();
 var tableContent="<table class='table table-striped'><tbody><th>Event</th><th>Date and Time</th><th>Attendees</th><th>Register</th>";
 var twoHoursLater = new Date(now.getTime() + (2*1000*60*60));
 twoHoursLater = twoHoursLater.toISOString();
+var calId=$('#addEvent fieldset input#inputGoogleCal').val();
 
 // google api console clientID and apiKey (https://code.google.com/apis/console/#project:568391772772)
 
 //TODO: get from config file
 //heroku:
-var clientId = '316615911187-duaavj04u4g1poomqp7dpm76pjuf2642.apps.googleusercontent.com';
+//var clientId = '316615911187-duaavj04u4g1poomqp7dpm76pjuf2642.apps.googleusercontent.com';
 //local:
-//var clientId= '316615911187-g6qp9ghdv970gcnl4c2g6j90koov8chc.apps.googleusercontent.com';
+var clientId= '316615911187-g6qp9ghdv970gcnl4c2g6j90koov8chc.apps.googleusercontent.com';
 
 var apiKey = 'AIzaSyCnjBi_r7BqHgKIY37bH5bzdzddoXAdYjs';
 
@@ -58,9 +59,18 @@ function handleAuthClick(event) {
 
 // function load the calendar api and make the api call
 function signup(eventId,summary,start,end,attendees) {
-    attendees+="jmb16@lehigh.edu";
-    var splitAttend = attendees.split(" ");
+  
 
+    console.log(calId);
+    var email=$('#addEvent fieldset input#email').val();
+   
+    //alert("google email: "+email);
+
+      attendees+=email;
+  
+    //attendees+="jmb316@lehigh.edu";
+    var splitAttend = attendees.split(" ");
+  
     // setup event details
 
     var t='[';
@@ -74,6 +84,7 @@ function signup(eventId,summary,start,end,attendees) {
     //console.log("t: "+str);
     // "attendees":[{"email":splitAttend[0]},{"email":splitAttend[1]}],
    var jsonYAY=  JSON.parse(str);
+    console.log(jsonYAY);
 
     var update = {
         "summary": summary,
@@ -98,21 +109,26 @@ function signup(eventId,summary,start,end,attendees) {
                                                                       });*/
     
     gapi.client.load('calendar', 'v3', function() {					// load the calendar api (version 3)
+                     
                      var request = gapi.client.calendar.events.update({
-                                                                      'calendarId':		'ftbioqlsgdfcp0sltprr7r7nqg@group.calendar.google.com',
+                                                                      'calendarId':calId,
                                                                               "eventId": eventId,
                                                                       "resource":			update							// pass event details with api call
-                                                                      })
+                                                                      });
                      
                       //adding an event
+                 
                       request.execute(function(resp) {
                       if(resp.status=='confirmed') {
-                      //document.getElementById('event-response').innerHTML = "Event created successfully. View it <a href='" + resp.htmlLink + "'>online here</a>.";
+                  
+                                      //document.getElementById('event-response').innerHTML = "Event created successfully. View it <a href='" + resp.htmlLink + "'>online here</a>.";
                                      // alert("Event created successfully");
                       } else {
                      // document.getElementById('event-response').innerHTML = "There was a problem. Reload page and try again.";
                                      // alert("There was a problem. Reload page and try again.");
+                                 
                       }
+                               
                       console.log(resp);
 
                       });
@@ -121,7 +137,7 @@ function signup(eventId,summary,start,end,attendees) {
                      //loading calendar after add
                 location.reload (true);
      
-                    
+               
                      
                      
                      });
@@ -130,7 +146,9 @@ function signup(eventId,summary,start,end,attendees) {
 
 
 function loadCalendarApi() {
+   
     gapi.client.load('calendar', 'v3', listUpcomingEvents);
+    
 }
 
 /**
@@ -139,18 +157,18 @@ function loadCalendarApi() {
  * appropriate message is printed.
  */
 function listUpcomingEvents() {
+   
     var request = gapi.client.calendar.events.list({
-                                                   'calendarId': 'ftbioqlsgdfcp0sltprr7r7nqg@group.calendar.google.com',
+                                                   'calendarId': calId,
                                                    'timeMin': (new Date()).toISOString(),
                                                    'showDeleted': false,
                                                    'singleEvents': true,
                                                    'orderBy': 'startTime'
                                                    });
-    
+   
     request.execute(function(resp) {
                     var events = resp.items;
                     //appendPre('Upcoming events:');
-                    
                     if (events.length > 0) {
                     for (i = 0; i < events.length; i++) {
                     var event = events[i];
@@ -174,26 +192,27 @@ function listUpcomingEvents() {
                     tableContent += '<td>'+ dateFormatted +" <br>"+timeStart+" - "+timeEnd+'</td><td>';
                     var myArr=[event.id,event.summary,event.start.dateTime,event.end.dateTime];
                     //alert(myArr[0]);
-                    var attendees="";
+                    var attendees="",attendeesPrint="";
                     for (var p in event.attendees) {
                         if(event.attendees[p].displayName)
-                            tableContent += event.attendees[p].displayName  + ', ';
+                            attendeesPrint += event.attendees[p].displayName  + ', ';
                         else
-                            tableContent += event.attendees[p].email + ', ';
+                            attendeesPrint += event.attendees[p].email + ', ';
                         attendees += event.attendees[p].email + ' ';
-                        //attendees += '{"email":"';
-                       // attendees+=event.attendees[p].email+'"}, ';
-                   
-                    //console.log("attendees:"+attendees);
-                    
-                    var splitAttend = attendees.split(" ");
-                    var jsonString = JSON.stringify(splitAttend);
-                   // console.log(splitAttend);
-                   // console.log(jsonString);
 
                     }
+                    if(attendeesPrint.length==0)
+                    {
+                        tableContent+=attendeesPrint;
+                    
+                    }
+                    else
+                    {
+                        var strPrint = attendeesPrint.substring(0, attendeesPrint.length - 2);
+                        tableContent+=strPrint;
+                    }
                      //alert(p + " : " + event.attendees[p].displayName);
-                     // alert("attendees:"+attendees);
+                    
                     tableContent += '</td>';
 
                     // tableContent += '<td>'+'<input type="button" '+'onClick=signup(\''+'event.summary'+','+'yetAnotherString'+'\')' +' value="Sign Up"></input></td></tr>';

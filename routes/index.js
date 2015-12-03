@@ -46,9 +46,27 @@ router.get('/', checkAuth, function(req, res) {
 
 
 /* GET chapter events page. */
-router.get('/chapterevents', checkAuth, function(req, res) {
-           res.render('chapterevents', { title: 'Chapter Events' });
+router.get('/chapterevents',checkAuth, function(req, res) {
+           // console.log("chap in profile:"+req.session.user.chapter_id);
+           
+           var db = req.db;
+           var collectionChap = db.get('chapters');
+           var collectionUser = db.get('users');
+           collectionChap.findOne({'_id': req.session.user.chapter_id},function(e,docs){
+                                  //console.log(docs);
+                                  //console.log(docs.chapName);
+                                  collectionUser.findOne({'google_id': req.session.user.google_id},function(e,user){
+                                                         //console.log(user);
+                                                         // console.log("major:"+user.Major);
+                                                        // console.log("year:"+docs.facebook);
+                                                         console.log("year:"+docs.googleCal);
+                                                         
+                                                         
+                                                         res.render('chapterevents', { name:req.session.user.name, email:req.session.user.email, google:req.session.user.google_id,chapid:docs.chapName,id:req.session.user.google_id,year:user.Year,major:user.Major, admin:user.admin,googleCal:docs.googleCal});
+                                                         });
+                                  });
            });
+
 
 /* GET chapter signup page. */
 router.get('/chaptersignup', function(req, res) {
@@ -93,8 +111,8 @@ router.get('/profile',checkAuth, function(req, res) {
                                   collectionUser.findOne({'google_id': req.session.user.google_id},function(e,user){
                                                          //console.log(user);
                                                         // console.log("major:"+user.Major);
-                                                        //console.log("year:"+user.Year);
-                                        
+                                                        console.log("year:"+docs.facebook);
+                                                        console.log("year:"+docs.googleCal);
 
                                                         
                                                          res.render('profile', { name:req.session.user.name, email:req.session.user.email, google:req.session.user.google_id,chapid:docs.chapName,id:req.session.user.google_id,year:user.Year,major:user.Major, admin:user.admin});

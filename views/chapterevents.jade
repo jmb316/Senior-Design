@@ -88,6 +88,10 @@ html(lang='en')
       .container(style='margin-top:20px;')
         .row
             button#authorize-button.btn.btn-primary Click here to Authorize Calendar
+            #addEvent
+                fieldset
+                    input#inputGoogleCal.form-control.input-lg( type='hidden', value='#{googleCal}')
+                    input#email.form-control.input-lg(type='hidden', value='#{email}')
         .row
           .col-xs-6
             script(src='javascripts/format-google-calendar.js')
@@ -111,7 +115,7 @@ html(lang='en')
             // .panel
           // Responsive iFrame
           .responsive-iframe-container
-            iframe(src='https://calendar.google.com/calendar/embed?mode=WEEK&height=600&wkst=1&bgcolor=%23FFFFFF&src=ftbioqlsgdfcp0sltprr7r7nqg%40group.calendar.google.com&color=%238C500B&ctz=America%2FNew_York', style='border-width:0', width='800', height='600', frameborder='0', scrolling='no')
+            iframe(src='https://calendar.google.com/calendar/embed?mode=WEEK&height=600&wkst=1&bgcolor=%23FFFFFF&src=#{googleCal}&color=%238C500B&ctz=America%2FNew_York', style='border-width:0', width='800', height='600', frameborder='0', scrolling='no')
           |                 
           hr
           // Footer
