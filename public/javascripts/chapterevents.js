@@ -293,7 +293,15 @@ function listUpcomingEvents() {
                     tableContent += '</td>';
 
                     // tableContent += '<td>'+'<input type="button" '+'onClick=signup(\''+'event.summary'+','+'yetAnotherString'+'\')' +' value="Sign Up"></input></td></tr>';
-                    tableContent += '<td>'+'<input type="button" '+'onclick=" signup(\'' + event.id  +'\',\'' + event.summary +'\',\'' + event.start.dateTime  +'\',\''+ event.end.dateTime  +'\', \''+ attendees  + '\')"' +' value="    Sign Up   "></input><br><br><input type="button"value="Delete Event" onclick="deleteEvent(\''+event.id+ '\')"'+'</input></td></tr>';
+                    tableContent += '<td>'+'<input type="button" '+'onclick=" signup(\'' + event.id  +'\',\'' + event.summary +'\',\'' + event.start.dateTime  +'\',\''+ event.end.dateTime  +'\', \''+ attendees  + '\')"' +' value="    Sign Up   "></input>';
+                    var admin=$('#addEvent fieldset input#admin').val();
+                    console.log("admin: " + admin);
+                    if (admin == 'true'){
+                        tableContent += '<br><br><input type="button"value="Delete Event" onclick="deleteEvent(\''+event.id+ '\')"'+'</input>';
+                        tableContent += '</td></tr>';
+                    }
+                    tableContent += '</td></tr>';
+
                     //console.log(tableContent);
                     //onclick="return ReAssign(\'' + valuationId  +'\',\'' + user + '\')"
                     }
