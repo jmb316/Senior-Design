@@ -10,9 +10,9 @@ var calId=$('#addEvent fieldset input#inputGoogleCal').val();
 
 //TODO: get from config file
 //heroku:
-var clientId = '316615911187-duaavj04u4g1poomqp7dpm76pjuf2642.apps.googleusercontent.com';
+//var clientId = '316615911187-duaavj04u4g1poomqp7dpm76pjuf2642.apps.googleusercontent.com';
 //local:
-//var clientId= '316615911187-g6qp9ghdv970gcnl4c2g6j90koov8chc.apps.googleusercontent.com';
+var clientId= '316615911187-g6qp9ghdv970gcnl4c2g6j90koov8chc.apps.googleusercontent.com';
 
 var apiKey = 'AIzaSyCnjBi_r7BqHgKIY37bH5bzdzddoXAdYjs';
 
@@ -62,8 +62,9 @@ function handleAuthClick(event) {
 
 // function load the calendar api and make the api call
 function signup(eventId,summary,start,end,attendees) {
-
-    //console.log(calId);
+  
+    alert(eventId+summary+start+end+attendees);
+    console.log(calId);
     var email=$('#addEvent fieldset input#email').val();
    
     //alert("google email: "+email);
@@ -83,14 +84,15 @@ function signup(eventId,summary,start,end,attendees) {
     }
     var str = t.substring(0, t.length - 1);
     str+=']';
-
+    //console.log("t: "+str);
+    // "attendees":[{"email":splitAttend[0]},{"email":splitAttend[1]}],
    var jsonYAY=  JSON.parse(str);
     console.log(jsonYAY);
 
     var update = {
         "summary": summary,
         "anyoneCanAddSelf": true,
-
+       // "attendees":[{"email":splitAttend[0]},{"email":splitAttend[1]}],
        "attendees": jsonYAY,
         
         "start": {
@@ -102,7 +104,14 @@ function signup(eventId,summary,start,end,attendees) {
         
 
     };
-        gapi.client.load('calendar', 'v3', function() {					// load the calendar api (version 3)
+
+   /* gapi.client.load('calendar', 'v3', function() {					// load the calendar api (version 3)
+                     var request = gapi.client.calendar.events.insert({
+                                                                      'calendarId':		'ftbioqlsgdfcp0sltprr7r7nqg@group.calendar.google.com',	// calendar ID
+                                                                      "resource":			resource							// pass event details with api call
+                                                                      });*/
+    
+    gapi.client.load('calendar', 'v3', function() {					// load the calendar api (version 3)
                      
                      var request = gapi.client.calendar.events.update({
                                                                       'calendarId':calId,
@@ -145,48 +154,24 @@ function loadCalendarApi() {
     
 }
 
-function ConvertHoursformat(format, time) {
 
-    var hours = Number(time.match(/^(\d+)/)[1]);
-    
-     var AMPM = time.substring(time.length-2,time.length);
-    if (AMPM == "pm" && hours < 12) hours = hours + 12;
-    if (AMPM == "am" && hours == 12) hours = hours - 12;
-    var sHours = hours.toString();
-    if (hours < 10) sHours = "0" + sHours;
-    return sHours;
-}
-
-function ConvertMinutesformat(format, time) {
-    var minutes = Number(time.match(/:(\d+)/)[1]);
-        var sMinutes = minutes.toString();
-    if (minutes < 10) sMinutes = "0" + sMinutes;
-    return  sMinutes;
-}
 
 function addEvent()
 {
-
-    var summary=$('#addE fieldset input#summary').val();
-    var date1=document.getElementById("date-picker-1").value;
-    var time1=document.getElementById("time-picker-1").value;
-    var date2=document.getElementById("date-picker-2").value;
-    var time2=document.getElementById("time-picker-2").value;
-
-    //alert("date1:"+date1+" "+date1.substring(6,10)+" M: "+date1.substring(0,2)+"D: "+date1.substring(3,5));
-    //12/23/2015
+    alert("in add event!");
     
-    var n= new Date(date1.substring(6,10), date1.substring(0,2)-1, date1.substring(3,5), ConvertHoursformat("24", time1), ConvertMinutesformat("24", time1), 0, 0);
-   var p= new Date(date2.substring(6,10), date2.substring(0,2)-1, date2.substring(3,5), ConvertHoursformat("24", time2), ConvertMinutesformat("24", time2), 0, 0);
-   
+       var summary=$('#addE fieldset input#summary').val();
+     var start=$('#addE fieldset input#start').val();
+        var end=$('#addE fieldset input#end').val();
+    alert("summary:"+summary+" start:"+start+" end:"+end);
     var details = {
         "summary": summary,
         "anyoneCanAddSelf": true,
         "start": {
-            "dateTime": n.toISOString()
+            "dateTime": start
         },
         "end": {
-            "dateTime": p.toISOString()
+            "dateTime": end
         }
         
         
@@ -204,11 +189,10 @@ function addEvent()
                      
                      request.execute(function(resp) {
                                      if(resp.status=='confirmed') {
-                                     //alert("Event added successfully");
+                                     //alert("Event deleted successfully");
                                      } else {
                                      // document.getElementById('event-response').innerHTML = "There was a problem. Reload page and try again.";
-                                      alert("There was a problem. Reload page and try again.");
-                                    // alert("Event not added");
+                                     // alert("There was a problem. Reload page and try again.");
                                      console.log(resp);
                                      
                                      }
@@ -232,7 +216,7 @@ function addEvent()
 
      function deleteEvent(eventId)
  {
-    
+     alert("in delete event!");
      
      gapi.client.load('calendar', 'v3', function() {					// load the calendar api (version 3)
                       
@@ -249,7 +233,7 @@ function addEvent()
                                       //alert("Event deleted successfully");
                                       } else {
                                       // document.getElementById('event-response').innerHTML = "There was a problem. Reload page and try again.";
-                                       alert("There was a problem. Reload page and try again.");
+                                      // alert("There was a problem. Reload page and try again.");
                                              console.log(resp);
                                       
                                       }

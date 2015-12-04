@@ -30,6 +30,10 @@ html(lang='en')
       |         
       script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
   body(onload='handleClientLoad()')
+
+    link(href='css/jquery-ui.css', rel='stylesheet', type='text/css')
+
+
     // Navigation
     nav.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
       .container
@@ -108,28 +112,60 @@ html(lang='en')
                                 button.close(type='button', data-dismiss='modal') ×
                                 h4.modal-title Add An Event
                             .modal-body
+
+
                                 #addE
                                     fieldset
+                                        h5 Event Name
+                                        input#summary.form-control(type='text')
+                                        br
+                                        br
+                                        h5 Select Start Date/Time
+                                        .row
 
-                                        input#summary(type='text', placeholder='Event Name')
+                                            .date-form
+                                                .form-horizontal
+                                                    .control-group
+                                                        .controls
+                                                            .col-md-7
+                                                                label.control-label(for='date-picker-1')
+                                                                    Date
+                                                                    span.glyphicon.glyphicon-calendar
+                                                                input#date-picker-1.date-picker.form-control(type='text')
+                                                            .col-md-5
+                                                                label.control-label(for='time-picker-1')
+                                                                    Time
+                                                                    span.glyphicon.glyphicon-time
+                                                                input#time-picker-1.time-picker.form-control(type='text')
                                         br
+                                        h5 Select End Date/Time
+                                        .row
 
-                                        input#start(type='text', placeholder='Start Time')
+                                            .date-form
+                                                .form-horizontal
+                                                    .control-group
+                                                        .controls
+                                                            .col-md-7
+                                                                label.control-label(for='date-picker-2')
+                                                                    Date
+                                                                    span.glyphicon.glyphicon-calendar
+                                                                input#date-picker-2.date-picker.form-control(type='text')
+                                                            .col-md-5
+                                                                label.control-label(for='time-picker-2')
+                                                                    Time
+                                                                    span.glyphicon.glyphicon-time
+                                                                input#time-picker-2.time-picker.form-control(type='text')
                                         br
-                                        input#end(type='text', placeholder='End Time')
                                         br
-                                        br
-                                        //button.btn.btn-primary(onclick='addEvent()') Add Event
-
                                         button.btn.btn-primary(onclick='addEvent()') Add Event
                                         //button.btn.btn-primary(type='submit') Sign in
+
 
                             .modal-footer
                                 button.btn.btn-default(type='button', data-dismiss='modal') Close
         .row
           .col-xs-6
             script(src='javascripts/format-google-calendar.js')
-            //button#btnAddEvent Add New Event
             #result-panel.panel
               .panel-heading
                 h3 Sign Up for Upcoming Events
@@ -160,8 +196,43 @@ html(lang='en')
         // Calendar JS
         // jQuery
         script(src='javascripts/jquery.min.js')
-        |     
+        script(type='text/javascript', src='javascripts/moment.min.js')
         script(src='javascripts/bootstrap.min.js')
+        script(type='text/javascript', src='bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
+        link(l='stylesheet', href='css/bootstrap-datetimepicker.min.css')
+        link(rel='stylesheet', href='css/bootstrap-datetimepicker.min.css')
+        link(rel='stylesheet', href='css/datepicker.css')
+        link(rel='stylesheet', href='css/jquery.timepicker.css')
+        link(rel='stylesheet', href='css/date.css')
         // <script src="javascripts/calendar.js"></script>
         // <script src="javascripts/calendarcheckbox.js"></script>
         script(src='javascripts/chapterevents.js')
+        script(src='javascripts/jquery_datepicker.js')
+        script(src='javascripts/jquery.timepicker.js')
+        script(type='text/javascript').
+            $(function(){
+
+            $('#datetimepicker2').datetimepicker({
+
+
+            });
+                       $(".date-picker").datepicker();
+
+            $(".date-picker").on("change", function () {
+
+            });
+
+
+
+            $(".time-picker").timepicker();
+
+            $(".time-picker").on("change", function () {
+
+            });
+
+            });
+
+
+
+
+
