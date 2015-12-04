@@ -10,9 +10,9 @@ var calId=$('#addEvent fieldset input#inputGoogleCal').val();
 
 //TODO: get from config file
 //heroku:
-var clientId = '316615911187-duaavj04u4g1poomqp7dpm76pjuf2642.apps.googleusercontent.com';
+//var clientId = '316615911187-duaavj04u4g1poomqp7dpm76pjuf2642.apps.googleusercontent.com';
 //local:
-//var clientId= '316615911187-g6qp9ghdv970gcnl4c2g6j90koov8chc.apps.googleusercontent.com';
+var clientId= '316615911187-g6qp9ghdv970gcnl4c2g6j90koov8chc.apps.googleusercontent.com';
 
 var apiKey = 'AIzaSyCnjBi_r7BqHgKIY37bH5bzdzddoXAdYjs';
 
@@ -176,7 +176,11 @@ function addEvent()
     var time1=document.getElementById("time-picker-1").value;
     var date2=document.getElementById("date-picker-2").value;
     var time2=document.getElementById("time-picker-2").value;
-
+    if(summary=='' || date1=='' || time1=='' || date2=='' ||time2=='')
+    {
+        alert("You must fill in all fields in order to submit an event");
+        return;
+    }
     //alert("date1:"+date1+" "+date1.substring(6,10)+" M: "+date1.substring(0,2)+"D: "+date1.substring(3,5));
     //12/23/2015
     
@@ -209,9 +213,10 @@ function addEvent()
                      request.execute(function(resp) {
                                      if(resp.status=='confirmed') {
                                      //alert("Event added successfully");
+                                        location.reload (true);
                                      } else {
                                      // document.getElementById('event-response').innerHTML = "There was a problem. Reload page and try again.";
-                                      alert("There was a problem. Reload page and try again.");
+                                      alert("Check your event details and try again ");
                                     // alert("Event not added");
                                      console.log(resp);
                                      
@@ -223,7 +228,7 @@ function addEvent()
                      
                      
                      //loading calendar after add
-                     location.reload (true);
+                     //location.reload (true);
                      
                      
                      

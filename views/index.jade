@@ -92,7 +92,7 @@ html(lang='en')
           h1.page-header
             span
                 p  #{chapname}
-      .col-md-8.col-sm-6
+      .col-lg-8.col-sm-6
         .panel.panel-default.text-center
           .panel-heading
             h4 Chapter Annoucements
@@ -108,7 +108,7 @@ html(lang='en')
                                 p #{key.newAnnounce}
                             td
                                 p #{key.timeStamp}
-                            td
+                            
                                 -if(admin)
                                     a.linkdeleteannounce(href='#', rel="#{key._id}") <input type="button" onClick="signup(\'' + event.id + '\')"value="Delete"></input></td>
             // announce LIST
