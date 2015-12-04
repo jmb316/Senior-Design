@@ -72,7 +72,7 @@ html(lang='en')
                 |                             
                 li
                   a(href='/logout') Log Out
-                |                             
+
                 li
         // /.navbar-collapse
       // /.container
@@ -80,17 +80,13 @@ html(lang='en')
     .container
       // Page Heading/Breadcrumbs
       .row
-        .col-lg-12
+        .col-xs-12
           h1.page-header
             | Chapter Events
-          |                 
           ol.breadcrumb
             li
               a(href='/') Home
-            |                     
             li.active Chapter Events
-      // /.row
-      .container(style='margin-top:20px;')
         .row
             button#authorize-button.btn.btn-primary Click here to Authorize Calendar
             #addEvent
@@ -112,8 +108,6 @@ html(lang='en')
                                 button.close(type='button', data-dismiss='modal') ×
                                 h4.modal-title Add An Event
                             .modal-body
-
-
                                 #addE
                                     fieldset
                                         h5 Event Name
@@ -127,12 +121,12 @@ html(lang='en')
                                                 .form-horizontal
                                                     .control-group
                                                         .controls
-                                                            .col-md-7
+                                                            .col-xs-7
                                                                 label.control-label(for='date-picker-1')
                                                                     Date
                                                                     span.glyphicon.glyphicon-calendar
                                                                 input#date-picker-1.date-picker.form-control(type='text')
-                                                            .col-md-5
+                                                            .col-xs-5
                                                                 label.control-label(for='time-picker-1')
                                                                     Time
                                                                     span.glyphicon.glyphicon-time
@@ -145,12 +139,12 @@ html(lang='en')
                                                 .form-horizontal
                                                     .control-group
                                                         .controls
-                                                            .col-md-7
+                                                            .col-xs-7
                                                                 label.control-label(for='date-picker-2')
                                                                     Date
                                                                     span.glyphicon.glyphicon-calendar
                                                                 input#date-picker-2.date-picker.form-control(type='text')
-                                                            .col-md-5
+                                                            .col-xs-5
                                                                 label.control-label(for='time-picker-2')
                                                                     Time
                                                                     span.glyphicon.glyphicon-time
@@ -177,14 +171,13 @@ html(lang='en')
                         #output
                             table.table.table-striped
                                 tbody
-
-
-
-              // .panel-body
-            // .panel
           // Responsive iFrame
-          .responsive-iframe-container
-            iframe(src='https://calendar.google.com/calendar/embed?mode=WEEK&height=600&wkst=1&bgcolor=%23FFFFFF&src=#{googleCal}&color=%238C500B&ctz=America%2FNew_York', style='border-width:0', width='800', height='600', frameborder='0', scrolling='no')
+          .col-xs-6
+            .responsive-iframe-container iframe code from google
+                //iframe(src='https://calendar.google.com/calendar/embed?mode=WEEK&height=600&wkst=1&bgcolor=%23FFFFFF&src=#{googleCal}&color=%238C500B&ctz=America%2FNew_York', style='border-width:0', width='800', height='600', frameborder='0', scrolling='no')
+                iframe(src='https://calendar.google.com/calendar/embed?mode=WEEK&height=600&wkst=1&bgcolor=%23FFFFFF&src=#{googleCal}&color=%238C500B&ctz=America%2FNew_York', allowfullscreen="", frameborder="0")
+
+
 
           hr
           // Footer

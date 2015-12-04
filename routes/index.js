@@ -187,8 +187,9 @@ router.get('/verfiy', checkAuth, function(req, res) {
 
 // Logout
 router.get('/logout', function (req, res) {
-           req.logout();
-           res.redirect('/login');
+           req.logout();//logout of our app, not google in total
+           //res.redirect('https://accounts.google.com/logout'); //this logs out of google but won't return to out app
+           res.redirect('/login');//common practice
            });
 
 /* GET home page. */

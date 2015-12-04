@@ -99,7 +99,8 @@ html(lang='en')
                         each val in rost.email
                             -if (count%2 == 0)
                                 tr
-                            td
+                              .col-md-6.col-sm-8
+                                hr
                                 strong #{val.name}
                                 p #{val.address}
                             -count++;
