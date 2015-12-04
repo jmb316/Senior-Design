@@ -35,22 +35,26 @@ function checkAuth() {
 // show/hide the 'authorize' button, depending on application state
 function handleAuthResult(authResult) {
     var authorizeButton = document.getElementById('authorize-button');
-     var addButton = document.getElementById('btnAddEvent');
+    var addButton       = document.getElementById('btnAddEvent');
     var resultPanel		= document.getElementById('result-panel');
     var resultTitle		= document.getElementById('result-title');
-    
+    var admin=$('#addEvent fieldset input#admin').val();
     if (authResult && !authResult.error) {
+       
         authorizeButton.style.visibility = 'hidden';			// if authorized, hide button
         resultPanel.className = resultPanel.className.replace( /(?:^|\s)panel-danger(?!\S)/g , '' )	// remove red class
         resultPanel.className += '';				// add green class
         resultTitle.innerHTML = ''	;	// display 'authorized' text
-         addButton.style.visibility = 'visible';
+         if(admin=='true')
+             addButton.style.visibility = 'visible';
         loadCalendarApi();											// load calendarif authorization passed
     } else {													// otherwise, show button
+
         authorizeButton.style.visibility = 'visible';
         //resultPanel.className += ' panel-danger';				// make panel red
         authorizeButton.onclick = handleAuthClick;				// setup function to handle button click
-       addButton.style.visibility = 'hidden';
+        if(admin=='true')
+            addButton.style.visibility = 'hidden';
     }
 }
 
