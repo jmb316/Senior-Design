@@ -80,85 +80,90 @@ html(lang='en')
     .container
       // Page Heading/Breadcrumbs
       .row
-        .col-xs-12
+          .col-xs-12.col-lg-6
           h1.page-header
             | Chapter Events
           ol.breadcrumb
             li
               a(href='/') Home
             li.active Chapter Events
-        .row
+      .row
+        .col-xs-12.col-lg-6
+            .responsive-iframe-container
+                // iframe(src='https://calendar.google.com/calendar/htmlembed?mode=WEEK&height=400&wkst=1&bgcolor=%23FFFFFF&src=#{googleCal}&color=%238C500B&ctz=America%2FNew_York', allowfullscreen="true", frameborder="0")
+                // iframe(src='https://calendar.google.com/calendar/embed?mode=WEEK&height=400&wkst=1&bgcolor=%23FFFFFF&src=#{googleCal}&color=%238C500B&ctz=America%2FNew_York', allowfullscreen="true", frameborder="0")
+                .visible-xs
+                    iframe(src='https://calendar.google.com/calendar/embed?mode=WEEK&src=#{googleCal}&color=%238C500B&ctz=America%2FNew_York', allowfullscreen="true", frameborder="0" )
+                .hidden-xs
+                    iframe(src='https://calendar.google.com/calendar/embed?mode=WEEK&src=#{googleCal}&color=%238C500B&ctz=America%2FNew_York', allowfullscreen="true", frameborder="0")
+
+
             button#authorize-button.btn.btn-primary Click here to Authorize Calendar
             #addEvent
                 fieldset
                     input#inputGoogleCal.form-control.input-lg( type='hidden', value='#{googleCal}')
                     input#email.form-control.input-lg(type='hidden', value='#{email}')
                     input#admin.form-control.input-lg(type='hidden', value='#{admin}')
-        .row
-            -if(admin)
-                // Trigger the modal with a button
-                //button.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#myModal') Open Modal
-                button#btnAddEvent(type='button', data-toggle='modal', data-target='#myModal') Create A New Event
-                // Modal
-                #myModal.modal.fade(role='dialog')
-                    .modal-dialog
-                        // Modal content
-                        .modal-content
-                            .modal-header
-                                button.close(type='button', data-dismiss='modal') ×
-                                h4.modal-title Add An Event
-                            .modal-body
-                                #addE
-                                    fieldset
-                                        h5 Event Name
-                                        input#summary.form-control(type='text')
-                                        br
-                                        br
-                                        h5 Select Start Date/Time
-                                        .row
+        -if(admin)
+            // Trigger the modal with a button
+            //button.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#myModal') Open Modal
+            button#btnAddEvent(type='button', data-toggle='modal', data-target='#myModal') Create A New Event
+            // Modal
+            #myModal.modal.fade(role='dialog')
+                .modal-dialog
+                    // Modal content
+                    .modal-content
+                        .modal-header
+                            button.close(type='button', data-dismiss='modal') ×
+                            h4.modal-title Add An Event
+                        .modal-body
+                            #addE
+                                fieldset
+                                    h5 Event Name
+                                    input#summary.form-control(type='text')
+                                    br
+                                    br
+                                    h5 Select Start Date/Time
+                                    .row
+                                        .date-form
+                                            .form-horizontal
+                                                .control-group
+                                                    .controls
+                                                        .col-xs-7
+                                                            label.control-label(for='date-picker-1')
+                                                                Date
+                                                                span.glyphicon.glyphicon-calendar
+                                                            input#date-picker-1.date-picker.form-control(type='text')
+                                                        .col-xs-5
+                                                            label.control-label(for='time-picker-1')
+                                                                Time
+                                                                span.glyphicon.glyphicon-time
+                                                            input#time-picker-1.time-picker.form-control(type='text')
+                                    br
+                                    h5 Select End Date/Time
+                                    .row
 
-                                            .date-form
-                                                .form-horizontal
-                                                    .control-group
-                                                        .controls
-                                                            .col-xs-7
-                                                                label.control-label(for='date-picker-1')
-                                                                    Date
-                                                                    span.glyphicon.glyphicon-calendar
-                                                                input#date-picker-1.date-picker.form-control(type='text')
-                                                            .col-xs-5
-                                                                label.control-label(for='time-picker-1')
-                                                                    Time
-                                                                    span.glyphicon.glyphicon-time
-                                                                input#time-picker-1.time-picker.form-control(type='text')
-                                        br
-                                        h5 Select End Date/Time
-                                        .row
-
-                                            .date-form
-                                                .form-horizontal
-                                                    .control-group
-                                                        .controls
-                                                            .col-xs-7
-                                                                label.control-label(for='date-picker-2')
-                                                                    Date
-                                                                    span.glyphicon.glyphicon-calendar
-                                                                input#date-picker-2.date-picker.form-control(type='text')
-                                                            .col-xs-5
-                                                                label.control-label(for='time-picker-2')
-                                                                    Time
-                                                                    span.glyphicon.glyphicon-time
-                                                                input#time-picker-2.time-picker.form-control(type='text')
-                                        br
-                                        br
-                                        button.btn.btn-primary(onclick='addEvent()') Add Event
-                                        //button.btn.btn-primary(type='submit') Sign in
-
-
-                            .modal-footer
+                                        .date-form
+                                            .form-horizontal
+                                                .control-group
+                                                    .controls
+                                                        .col-xs-7
+                                                            label.control-label(for='date-picker-2')
+                                                                Date
+                                                                span.glyphicon.glyphicon-calendar
+                                                            input#date-picker-2.date-picker.form-control(type='text')
+                                                        .col-xs-5
+                                                            label.control-label(for='time-picker-2')
+                                                                Time
+                                                                span.glyphicon.glyphicon-time
+                                                            input#time-picker-2.time-picker.form-control(type='text')
+                                    br
+                                    br
+                                    button.btn.btn-primary(onclick='addEvent()') Add Event
+                                    //button.btn.btn-primary(type='submit') Sign in
+                        .modal-footer
                                 button.btn.btn-default(type='button', data-dismiss='modal') Close
-        .row
-          .col-xs-6
+        .col-xs-12.col-lg-6
             script(src='javascripts/format-google-calendar.js')
             #result-panel.panel
               .panel-heading
@@ -171,20 +176,12 @@ html(lang='en')
                         #output
                             table.table.table-striped
                                 tbody
+  footer
+    .row
+        .col-lg-12
+            p YourOrg 2015
           // Responsive iFrame
-          .col-xs-6
-            .responsive-iframe-container iframe code from google
-                //iframe(src='https://calendar.google.com/calendar/embed?mode=WEEK&height=600&wkst=1&bgcolor=%23FFFFFF&src=#{googleCal}&color=%238C500B&ctz=America%2FNew_York', style='border-width:0', width='800', height='600', frameborder='0', scrolling='no')
-                iframe(src='https://calendar.google.com/calendar/embed?mode=WEEK&height=600&wkst=1&bgcolor=%23FFFFFF&src=#{googleCal}&color=%238C500B&ctz=America%2FNew_York', allowfullscreen="", frameborder="0")
 
-
-
-          hr
-          // Footer
-          footer
-            .row
-              .col-lg-12
-                p YourOrg 2015
         // /.container
         // Calendar JS
         // jQuery

@@ -1,18 +1,18 @@
 /*Source: http://thewebrocks.com/publications/smashingbook3/todolist/*/
 * {
     margin: 0;
-    padding: 4;
+   /* padding: 4;*/
 }
 
 body {
-    padding: 2em;
+    /*padding: 2em;*/
     font-size: 15px;
     font-family: helvetica, arial, sans-serif;
 }
 form {
     color: black;
     border-radius: 5px;
-    padding: 5px 10px;
+   /* padding: 5px 10px;*/
 }
 
 #btnAddEvent{
@@ -33,7 +33,7 @@ form {
     border-radius: 2px;
     list-style: none;
     background: #eee;
-    padding: 5px 10px;
+   /* padding: 5px 10px;*/
     margin-bottom: 5px;
     position: relative;
 }
